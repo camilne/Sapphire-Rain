@@ -6,10 +6,6 @@ public class GameScreen extends State {
 
     private static final long serialVersionUID = 1L;
 
-    public GameScreen() {
-
-    }
-
     @Override
     public void init() {
 	// Empty
@@ -27,6 +23,7 @@ public class GameScreen extends State {
 
     @Override
     public void paintComponent(Graphics g) {
+	super.paintComponent(g);
 	// Empty
     }
 

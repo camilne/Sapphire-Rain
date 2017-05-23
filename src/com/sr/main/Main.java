@@ -2,7 +2,6 @@ package com.sr.main;
 
 import javax.swing.JFrame;
 
-import com.sr.game.GameScreen;
 import com.sr.game.StateMachine;
 
 public class Main {
@@ -20,15 +19,20 @@ public class Main {
 	frame.setVisible(true);
 
 	Thread gameThread = new Thread(() -> {
-	    final GameScreen game = new GameScreen();
-	    game.setSize(this.width, this.height);
+	    StateMachine stateMachine = StateMachine.getInstance();
+	    stateMachine.setJFrame(frame);
 
-	    StateMachine stateMachine = new StateMachine(frame);
-	    stateMachine.pushState(game);
+	    stateMachine.pushState("main-menu");
 
 	    while (true) {
 		stateMachine.update();
 		stateMachine.render();
+
+		try {
+		    Thread.sleep(1000 / 60);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
 	    }
 	});
 	gameThread.setDaemon(true);

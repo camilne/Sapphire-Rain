@@ -1,17 +1,27 @@
 package com.sr.game;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 
 public class StateMachine {
 
-    private final Stack<State> stateStack;
-    private final JFrame mainWindow;
+    private static final Object key = new Object();
 
-    public StateMachine(JFrame mainWindow) {
-	this.stateStack = new Stack<>();
+    private static volatile StateMachine instance;
+
+    private final ArrayDeque<State> stateStack;
+    private final HashMap<String, State> stateMap;
+    private JFrame mainWindow;
+
+    private StateMachine(JFrame mainWindow) {
+	this.stateStack = new ArrayDeque<>();
+	this.stateMap = new HashMap<>();
 	this.mainWindow = mainWindow;
+
+	registerState("main-menu", new MainMenu());
+	registerState("game", new GameScreen());
     }
 
     public void update() {
@@ -26,39 +36,89 @@ public class StateMachine {
 	}
     }
 
-    public void pushState(State state) {
+    public void registerState(final String stateName, final State state) {
+	if (stateName == null) {
+	    throw new NullPointerException("Registering state name is null");
+	}
+
+	if (state == null) {
+	    throw new NullPointerException(
+		    "Registering state is null with name: " + stateName);
+	}
+
+	this.stateMap.put(stateName, state);
+    }
+
+    public void pushState(final String stateName) {
+	if (!this.stateMap.containsKey(stateName)) {
+	    throw new IllegalArgumentException("State name (" + stateName
+		    + ") does not exist in registered states");
+	}
+
+	pushState(this.stateMap.get(stateName));
+    }
+
+    public void pushState(final State state) {
 	if (state == null) {
 	    throw new NullPointerException("State is null");
 	}
 
-	if (getCurrentState() != null) {
-	    this.mainWindow.remove(state);
+	state.init();
+
+	if (this.mainWindow != null) {
+	    if (getCurrentState() != null) {
+		this.mainWindow.remove(getCurrentState());
+	    }
+
+	    this.mainWindow.add(state);
+	    this.mainWindow.revalidate();
+	    this.mainWindow.repaint();
 	}
 
 	this.stateStack.push(state);
-	getCurrentState().init();
-
-	this.mainWindow.add(state);
     }
 
     public State popState() {
 	State resultState = this.stateStack.pop();
 
-	this.mainWindow.remove(resultState);
+	if (this.mainWindow != null) {
+	    this.mainWindow.remove(resultState);
 
-	if (getCurrentState() != null) {
-	    this.mainWindow.add(getCurrentState());
+	    if (getCurrentState() != null) {
+		this.mainWindow.add(getCurrentState());
+	    }
+
+	    this.mainWindow.revalidate();
+	    this.mainWindow.repaint();
 	}
 
 	return resultState;
     }
 
     public State getCurrentState() {
-	if (this.stateStack.empty()) {
+	if (this.stateStack.isEmpty()) {
 	    return null;
 	}
 
 	return this.stateStack.peek();
+    }
+
+    public void setJFrame(final JFrame newFrame) {
+	this.mainWindow = newFrame;
+    }
+
+    public static StateMachine getInstance() {
+	if (instance != null) {
+	    return instance;
+	}
+
+	synchronized (key) {
+	    if (instance == null) {
+		instance = new StateMachine(null);
+	    }
+
+	    return instance;
+	}
     }
 
 }
