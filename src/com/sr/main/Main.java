@@ -16,6 +16,7 @@ public class Main {
 	frame.setSize(this.width, this.height);
 	frame.setLocationRelativeTo(null);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setResizable(false);
 	frame.setVisible(true);
 
 	Thread gameThread = new Thread(() -> {
