@@ -2,22 +2,27 @@ package com.sr.game;
 
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
+public class GameScreen extends State {
 
-public class GameScreen extends JPanel {
-
-    private static final long serialVersionUID = -4652549849646030472L;
+    private static final long serialVersionUID = 1L;
 
     public GameScreen() {
 
     }
 
+    @Override
     public void init() {
 	// Empty
     }
 
+    @Override
     public void update() {
 	// Empty
+    }
+
+    @Override
+    public void render() {
+	repaint();
     }
 
     @Override

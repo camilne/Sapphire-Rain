@@ -3,6 +3,7 @@ package com.sr.main;
 import javax.swing.JFrame;
 
 import com.sr.game.GameScreen;
+import com.sr.game.StateMachine;
 
 public class Main {
 
@@ -16,19 +17,18 @@ public class Main {
 	frame.setSize(this.width, this.height);
 	frame.setLocationRelativeTo(null);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	final GameScreen game = new GameScreen();
-	game.setSize(this.width, this.height);
-	frame.add(game);
-
 	frame.setVisible(true);
 
 	Thread gameThread = new Thread(() -> {
-	    game.init();
+	    final GameScreen game = new GameScreen();
+	    game.setSize(this.width, this.height);
+
+	    StateMachine stateMachine = new StateMachine(frame);
+	    stateMachine.pushState(game);
 
 	    while (true) {
-		game.update();
-		game.repaint();
+		stateMachine.update();
+		stateMachine.render();
 	    }
 	});
 	gameThread.setDaemon(true);
