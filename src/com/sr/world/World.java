@@ -7,19 +7,24 @@ public class World {
 
     // Holds all the entities in the world. Does not allow duplicates
     private final HashSet<Entity> entities;
+    // Holds the position of the world relative to the game window
+    private double x;
+    private double y;
 
     /**
      * Creates an instance of the world with no level nor entities
      */
     public World() {
 	this.entities = new HashSet<>();
+	this.x = 0;
+	this.y = 0;
     }
 
     /**
      * Updates everything in the world
      */
     public void update() {
-	this.entities.forEach((Entity e) -> {
+	this.entities.forEach((final Entity e) -> {
 	    e.update();
 	});
     }
@@ -31,7 +36,7 @@ public class World {
      *            The graphics context from which to render
      */
     public void render(final Graphics g) {
-	this.entities.forEach((Entity e) -> {
+	this.entities.forEach((final Entity e) -> {
 	    e.render(g);
 	});
     }
@@ -59,12 +64,41 @@ public class World {
     }
 
     /**
+     * Translates the world from (x,y)->(x+dx,y+dy)
+     * 
+     * @param dx
+     * @param dy
+     */
+    public void translate(final double dx, final double dy) {
+	this.x += dx;
+	this.y += dy;
+    }
+
+    /**
      * Returns the number of entities present in the world
      * 
      * @return
      */
     public final int getEntityCount() {
 	return this.entities.size();
+    }
+
+    /**
+     * Returns the x-offset of the world
+     * 
+     * @return
+     */
+    public final double getX() {
+	return this.x;
+    }
+
+    /**
+     * Returns the y-offset of the world
+     * 
+     * @return
+     */
+    public final double getY() {
+	return this.y;
     }
 
 }

@@ -8,6 +8,8 @@ import org.junit.Test;
 
 public class WorldTest {
 
+    private static final double EPSILON = 1e-4;
+
     @SuppressWarnings("static-method")
     @Test
     public void canCreateNewDefaultWorld() {
@@ -28,16 +30,18 @@ public class WorldTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
 	};
 
-	boolean addResult = instance.addEntity(entity);
+	final boolean addResult = instance.addEntity(entity);
 
 	assertTrue("Did not add entity to world successfully", addResult);
 	assertEquals(1, instance.getEntityCount());
+	assertEquals(0.0, instance.getX(), EPSILON);
+	assertEquals(0.0, instance.getY(), EPSILON);
     }
 
     @SuppressWarnings("static-method")
@@ -52,14 +56,14 @@ public class WorldTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
 	};
 
 	instance.addEntity(entity);
-	boolean addResult = instance.addEntity(entity);
+	final boolean addResult = instance.addEntity(entity);
 
 	assertFalse("Should not have added to world but did", addResult);
 	assertEquals(1, instance.getEntityCount());
@@ -77,7 +81,7 @@ public class WorldTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
@@ -85,7 +89,7 @@ public class WorldTest {
 
 	instance.addEntity(entity);
 
-	boolean removeResult = instance.removeEntity(entity);
+	final boolean removeResult = instance.removeEntity(entity);
 
 	assertTrue("Should have removed entity from world successfully",
 		removeResult);
@@ -104,17 +108,59 @@ public class WorldTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
 	};
 
-	boolean removeResult = instance.removeEntity(entity);
+	final boolean removeResult = instance.removeEntity(entity);
 
 	assertFalse("Should not have removed entity from world successfully",
 		removeResult);
 	assertEquals(0, instance.getEntityCount());
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    public void canTranslateWorldWithPositiveArbitraryOffsets() {
+	final World instance = new World();
+	final double x1 = 1052.352340;
+	final double y1 = 25082.23058;
+
+	instance.translate(x1, y1);
+
+	assertEquals(x1, instance.getX(), EPSILON);
+	assertEquals(y1, instance.getY(), EPSILON);
+
+	final double x2 = 12094.0289;
+	final double y2 = 48579.28973;
+
+	instance.translate(x2, y2);
+
+	assertEquals(x1 + x2, instance.getX(), EPSILON);
+	assertEquals(y1 + y2, instance.getY(), EPSILON);
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    public void canTranslateWorldWithNegativeArbitraryOffsets() {
+	final World instance = new World();
+	final double x1 = -2232.12352;
+	final double y1 = -2583.345938;
+
+	instance.translate(x1, y1);
+
+	assertEquals(x1, instance.getX(), EPSILON);
+	assertEquals(y1, instance.getY(), EPSILON);
+
+	final double x2 = -2325.2894;
+	final double y2 = -87981.4380;
+
+	instance.translate(x2, y2);
+
+	assertEquals(x1 + x2, instance.getX(), EPSILON);
+	assertEquals(y1 + y2, instance.getY(), EPSILON);
     }
 
 }
