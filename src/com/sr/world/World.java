@@ -36,9 +36,15 @@ public class World {
      *            The graphics context from which to render
      */
     public void render(final Graphics g) {
+	// Translates the graphics origin to match that of the world offset
+	g.translate((int) this.x, (int) this.y);
+
 	this.entities.forEach((final Entity e) -> {
 	    e.render(g);
 	});
+
+	// Restores the graphics origin
+	g.translate((int) (-this.x), (int) (-this.y));
     }
 
     /**
