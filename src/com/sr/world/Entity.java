@@ -42,14 +42,29 @@ public abstract class Entity {
 
     public abstract void render(final Graphics g);
 
+    /**
+     * Returns the x-coordinate for this entity
+     * 
+     * @return
+     */
     public final double getX() {
 	return this.x;
     }
 
+    /**
+     * Returns the y-coordinate for this entity
+     * 
+     * @return
+     */
     public final double getY() {
 	return this.y;
     }
 
+    /**
+     * Returns the name of this entity
+     * 
+     * @return
+     */
     public final String getName() {
 	return this.name;
     }
