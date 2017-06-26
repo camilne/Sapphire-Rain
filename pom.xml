@@ -3,10 +3,7 @@
   <groupId>SapphireRain</groupId>
   <artifactId>SapphireRain</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-<<<<<<< Updated upstream
-=======
-  
->>>>>>> Stashed changes
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
