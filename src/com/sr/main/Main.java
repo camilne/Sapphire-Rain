@@ -2,6 +2,8 @@ package com.sr.main;
 
 import javax.swing.JFrame;
 
+import com.sr.game.GameScreen;
+import com.sr.game.MainMenu;
 import com.sr.game.StateMachine;
 
 public class Main {
@@ -26,10 +28,13 @@ public class Main {
 	frame.setVisible(true);
 
 	// Thread for running the application
-	Thread gameThread = new Thread(() -> {
+	final Thread gameThread = new Thread(() -> {
 	    // Create a state machine to hold the state of the application
-		StateMachine stateMachine = StateMachine.getInstance();
-		stateMachine.setJFrame(frame);
+		final StateMachine stateMachine = new StateMachine(frame);
+		// Register initial states
+		stateMachine.registerState("main-menu", new MainMenu(
+			stateMachine));
+		stateMachine.registerState("game", new GameScreen());
 
 		// Make the main menu the current state
 		stateMachine.pushState("main-menu");
@@ -44,7 +49,7 @@ public class Main {
 		    // render don't take any time)
 		    try {
 			Thread.sleep(1000 / 60);
-		    } catch (Exception e) {
+		    } catch (final Exception e) {
 			e.printStackTrace();
 		    }
 		}
@@ -56,7 +61,7 @@ public class Main {
     }
 
     @SuppressWarnings("unused")
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 	new Main();
     }
 

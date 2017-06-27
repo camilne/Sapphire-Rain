@@ -1,13 +1,13 @@
 package com.sr.game;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class StateTest {
 
     State state;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 	this.state = new State() {
 

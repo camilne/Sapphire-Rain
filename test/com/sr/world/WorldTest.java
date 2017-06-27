@@ -1,12 +1,12 @@
 package com.sr.world;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class WorldTest {
 
@@ -40,7 +40,7 @@ public class WorldTest {
 
 	final boolean addResult = instance.addEntity(entity);
 
-	assertTrue("Did not add entity to world successfully", addResult);
+	assertTrue(addResult, "Did not add entity to world successfully");
 	assertEquals(1, instance.getEntityCount());
 	assertEquals(0.0, instance.getX(), EPSILON);
 	assertEquals(0.0, instance.getY(), EPSILON);
@@ -67,7 +67,7 @@ public class WorldTest {
 	instance.addEntity(entity);
 	final boolean addResult = instance.addEntity(entity);
 
-	assertFalse("Should not have added to world but did", addResult);
+	assertFalse(addResult, "Should not have added to world but did");
 	assertEquals(1, instance.getEntityCount());
     }
 
@@ -93,8 +93,8 @@ public class WorldTest {
 
 	final boolean removeResult = instance.removeEntity(entity);
 
-	assertTrue("Should have removed entity from world successfully",
-		removeResult);
+	assertTrue(removeResult,
+		"Should have removed entity from world successfully");
 	assertEquals(0, instance.getEntityCount());
     }
 
@@ -118,8 +118,8 @@ public class WorldTest {
 
 	final boolean removeResult = instance.removeEntity(entity);
 
-	assertFalse("Should not have removed entity from world successfully",
-		removeResult);
+	assertFalse(removeResult,
+		"Should not have removed entity from world successfully");
 	assertEquals(0, instance.getEntityCount());
     }
 

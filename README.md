@@ -20,7 +20,7 @@ A small collaborative, top-down stealth game.
 ### Dependencies
 * Java 8
 * [Build-only] Maven 3
-* [Test-only] JUnit 4
+* [Test-only] JUnit 5
 
 [//]: # (Installation instructions)
 

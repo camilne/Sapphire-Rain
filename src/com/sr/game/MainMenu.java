@@ -10,6 +10,12 @@ public class MainMenu extends State {
 
     private static final long serialVersionUID = 1L;
 
+    private StateMachine stateMachine;
+
+    public MainMenu(final StateMachine stateMachine) {
+	this.stateMachine = stateMachine;
+    }
+
     @Override
     public void init() {
 	// Set the layout of the main menu to be a grid
@@ -27,8 +33,8 @@ public class MainMenu extends State {
 
 	// Creates a button to start the game
 	final JButton buttonStartGame = new JButton("Start Game");
-	buttonStartGame.addActionListener((ActionEvent e) -> {
-	    StateMachine.getInstance().pushState("game");
+	buttonStartGame.addActionListener((final ActionEvent e) -> {
+	    this.stateMachine.pushState("game");
 	});
 	// Set the start button to be below the title
 	constraints.gridx = 0;
@@ -47,7 +53,7 @@ public class MainMenu extends State {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(final Graphics g) {
 	super.paintComponent(g);
 	// Empty
     }
