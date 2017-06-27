@@ -1,0 +1,17 @@
+codecov:
+  notify:
+    require_ci_to_pass: yes
+
+comment:
+  require_changes: yes
+
+coverage:
+  notify:
+    slack:
+      default:
+        url: secret:h3lsENLjqOE8bRyXVG2UqX4GAw4fFyr2wbV0u2mq+RwtTAR2JHWpqVrrgWLfqatqgRamEhQYkqR2wH/+ZCdqKY7IIhJ4/3yVGNxqNpdwJ/gpLjuTASkyAvC4DYSmZoCCg0fRpOSH2POJqgudC+HVELdRvLDtSpTznVjpqVRxXoo=
+        threshold: 2%
+        only_pulls: false
+        branches: null
+        flags: null
+        paths: null

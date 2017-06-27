@@ -70,10 +70,12 @@ public class World {
     }
 
     /**
-     * Translates the world from (x,y)->(x+dx,y+dy)
+     * Translates the world from (x,y) to (x+dx,y+dy)
      * 
      * @param dx
+     *            the delta x offset
      * @param dy
+     *            the delta y offset
      */
     public void translate(final double dx, final double dy) {
 	this.x += dx;
@@ -83,7 +85,7 @@ public class World {
     /**
      * Returns the number of entities present in the world
      * 
-     * @return
+     * @return the number of entitites in the world
      */
     public final int getEntityCount() {
 	return this.entities.size();
@@ -92,7 +94,7 @@ public class World {
     /**
      * Returns the x-offset of the world
      * 
-     * @return
+     * @return the x-offset of the world
      */
     public final double getX() {
 	return this.x;
@@ -101,7 +103,7 @@ public class World {
     /**
      * Returns the y-offset of the world
      * 
-     * @return
+     * @return the y-offset of the world
      */
     public final double getY() {
 	return this.y;
