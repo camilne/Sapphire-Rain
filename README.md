@@ -38,13 +38,22 @@ or if you are using the M2Eclipse plugin, right-click `pom.xml`&gt;Run As&gt;Mav
 
 [//]: # (Testing instructions)
 
-
 ### To test
 1. Follow the instructions in building from source.
 2. Test the project using:
 > ```
 > mvn test
 > ```
+
+[//]: # (Javadoc instructions)
+
+### To generate javadocs
+1. Follow the instructions in buildling from source.
+2. Generate javadocs using:
+> ```bash
+> mvn javadocs:javadocs
+> ```
+&nbsp;&nbsp;3. Javadocs are found in `target/site/apidocs/`.
 
 ### Technologies used
 * [Travis-CI](https://travis-ci.org/)
