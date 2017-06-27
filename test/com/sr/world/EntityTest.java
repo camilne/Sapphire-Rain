@@ -1,10 +1,10 @@
 package com.sr.world;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Graphics;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class EntityTest {
 
@@ -21,7 +21,7 @@ public class EntityTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
@@ -46,7 +46,7 @@ public class EntityTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
@@ -71,7 +71,7 @@ public class EntityTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
@@ -97,7 +97,7 @@ public class EntityTest {
 	    }
 
 	    @Override
-	    public void render(Graphics g) {
+	    public void render(final Graphics g) {
 		// Empty
 	    }
 
