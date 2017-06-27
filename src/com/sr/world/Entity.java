@@ -19,7 +19,9 @@ public abstract class Entity {
      * Creates an unnamed entity at (x,y)
      * 
      * @param x
+     *            x-coordinate
      * @param y
+     *            y-coordinate
      */
     public Entity(final double x, final double y) {
 	this(x, y, "");
@@ -29,8 +31,11 @@ public abstract class Entity {
      * Creates an entity with the given name at (x,y)
      * 
      * @param x
+     *            x-coordinate
      * @param y
+     *            y-coordinate
      * @param name
+     *            screen name of the entity
      */
     public Entity(final double x, final double y, final String name) {
 	this.x = x;
@@ -45,7 +50,7 @@ public abstract class Entity {
     /**
      * Returns the x-coordinate for this entity
      * 
-     * @return
+     * @return the x-coordinate for this entity
      */
     public final double getX() {
 	return this.x;
@@ -54,7 +59,7 @@ public abstract class Entity {
     /**
      * Returns the y-coordinate for this entity
      * 
-     * @return
+     * @return the y-coordinate for this entity
      */
     public final double getY() {
 	return this.y;
@@ -63,7 +68,7 @@ public abstract class Entity {
     /**
      * Returns the name of this entity
      * 
-     * @return
+     * @return the name of this entity
      */
     public final String getName() {
 	return this.name;
