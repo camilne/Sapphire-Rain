@@ -74,6 +74,11 @@
 			<format>html</format>
 			<format>xml</format>
 		  </formats>
+		  <instrumentation>
+		    <excludes>
+			  <exclude>com/sr/main/Main.class</exclude>
+			</excludes>
+		  </instrumentation>
 		<check />
 		</configuration>
 	  </plugin>
