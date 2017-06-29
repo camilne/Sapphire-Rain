@@ -72,6 +72,64 @@ public class TextureAtlas {
     }
 
     /**
+     * Registers a repeated amount of textures that are the same size. The
+     * naming scheme is "prefix + i", where i is in [0, amount). The method
+     * begins at the first rectangle, and iterates to the right of the reference
+     * texture and wraps to align with the first rectangle when it hits the edge
+     * of the reference texture.
+     * 
+     * @param prefix
+     *            the prefix of the naming scheme
+     * @param first
+     *            the first location and size of the texture
+     * @param amount
+     *            the amount of textures to load in
+     */
+    public void registerRepeated(final String prefix, final Rectangle first,
+	    final int amount) {
+	// Get a non-null prefix
+	final String nonNullPrefix;
+	if (prefix == null) {
+	    System.out.println(
+		    "[WARN] - registerRepeated: prefix is null, assigning default");
+	    nonNullPrefix = "";
+	} else {
+	    nonNullPrefix = prefix;
+	}
+
+	// Get a non-null first rectangle
+	final Rectangle nonNullFirst;
+	if (first == null) {
+	    System.out.println(
+		    "[WARN] - registerRepeated: first is null, assigning default");
+	    nonNullFirst = new Rectangle(0, 0, getWidth() / amount,
+		    getHeight());
+	} else {
+	    nonNullFirst = first;
+	}
+
+	if (amount <= 0) {
+	    throw new IllegalArgumentException(
+		    "registerRepeated: amount cannot be less than or equal to zero: "
+			    + amount);
+	}
+
+	// Holds the current location of the texture
+	final Rectangle current = new Rectangle(nonNullFirst);
+
+	for (int i = 0; i < amount; i++) {
+	    registerTexture(nonNullPrefix + String.valueOf(i), current);
+
+	    current.x += current.width;
+	    // Tiling has gone off texture and needs to wrap
+	    if (current.x + current.width > getWidth()) {
+		current.x = nonNullFirst.x;
+		current.y += current.height;
+	    }
+	}
+    }
+
+    /**
      * Returns the sub-texture that was registered with this name. If
      * <code>null</code> is passed in as name, then the entire reference texture
      * is returned.
@@ -97,6 +155,24 @@ public class TextureAtlas {
 	}
 
 	return this.atlas.get(name);
+    }
+
+    /**
+     * Returns the width of the reference texture
+     * 
+     * @return the width of the reference texture in pixels
+     */
+    public int getWidth() {
+	return this.texture.getWidth();
+    }
+
+    /**
+     * Returns the height of the reference texture
+     * 
+     * @return the height of the reference texture in pixels
+     */
+    public int getHeight() {
+	return this.texture.getHeight();
     }
 
 }

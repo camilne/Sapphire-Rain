@@ -95,4 +95,87 @@ public class TextureAtlasTest {
 		() -> this.instance.getTexture(name));
     }
 
+    @Test
+    public void canGetWidthOfReferenceTexture() {
+	assertEquals(WIDTH, this.instance.getWidth());
+    }
+
+    @Test
+    public void canGetHeightOfReferenceTexture() {
+	assertEquals(HEIGHT, this.instance.getHeight());
+    }
+
+    @Test
+    public void canRegisterRepeatedValidTextures() {
+	final String prefix = "test";
+	final Rectangle first = new Rectangle(0, 0, 16, 16);
+	final int amount = 10;
+
+	this.instance.registerRepeated(prefix, first, amount);
+
+	final BufferedImage texture1 = this.instance.getTexture("test0");
+
+	assertNotEquals(null, texture1);
+	assertEquals(first.width, texture1.getWidth());
+	assertEquals(first.height, texture1.getHeight());
+
+	final BufferedImage texture2 = this.instance
+		.getTexture("test" + String.valueOf(amount - 1));
+
+	assertNotEquals(null, texture2);
+	assertEquals(first.width, texture2.getWidth());
+	assertEquals(first.height, texture2.getHeight());
+    }
+
+    @Test
+    public void defaultsNullPrefixToBlank() {
+	final String prefix = null;
+	final Rectangle first = new Rectangle(0, 0, 16, 16);
+	final int amount = 10;
+
+	this.instance.registerRepeated(prefix, first, amount);
+
+	final BufferedImage texture = this.instance.getTexture("0");
+
+	assertNotEquals(null, texture);
+    }
+
+    @Test
+    public void defaultsNullFirstAreaWithoutExceptions() {
+	final String prefix = "test";
+	final Rectangle first = null;
+	final int amount = 10;
+
+	this.instance.registerRepeated(prefix, first, amount);
+
+	final BufferedImage texture1 = this.instance.getTexture("test0");
+
+	assertNotEquals(null, texture1);
+
+	final BufferedImage texture2 = this.instance
+		.getTexture("test" + String.valueOf(amount - 1));
+
+	assertNotEquals(null, texture2);
+    }
+
+    @Test
+    public void throwsIllegalArgumentExceptionWhenAmountIsLessThanZero() {
+	final String prefix = "test";
+	final Rectangle first = new Rectangle(0, 0, 16, 16);
+	final int amount = -5;
+
+	assertThrows(IllegalArgumentException.class,
+		() -> this.instance.registerRepeated(prefix, first, amount));
+    }
+
+    @Test
+    public void throwsIllegalArgumentExceptionWhenAmountIsEqualToZero() {
+	final String prefix = "test";
+	final Rectangle first = new Rectangle(0, 0, 16, 16);
+	final int amount = 0;
+
+	assertThrows(IllegalArgumentException.class,
+		() -> this.instance.registerRepeated(prefix, first, amount));
+    }
+
 }
