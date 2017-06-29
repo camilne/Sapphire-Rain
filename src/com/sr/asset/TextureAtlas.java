@@ -36,7 +36,7 @@ public class TextureAtlas {
      *            texture
      * @throws NullPointerException
      *             if name or area is <code>null</code>.
-     * @throws IllegalArgumenException
+     * @throws IllegalArgumentException
      *             if the area is completely outside the texture.
      */
     public void registerTexture(final String name, final Rectangle area)
