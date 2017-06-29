@@ -9,7 +9,7 @@ public class Tile {
     // The prefix to use in the TextureAtlas
     public static final String PREFIX = "tile";
     // The size of the tile in the game world
-    public static final int SIZE = 32;
+    public static final int SIZE = 64;
 
     // The name of the tile for the texture atlas
     private String name;

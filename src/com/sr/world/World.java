@@ -32,6 +32,7 @@ public class World {
 	this.x = 0;
 	this.y = 0;
 
+	// Create the level
 	final String atlasLocation = "./resources/level/default.jpg";
 	final BufferedImage referenceImage = ImageIO
 		.read(new File(atlasLocation));
