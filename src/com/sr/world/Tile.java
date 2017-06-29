@@ -45,7 +45,8 @@ public class Tile {
      */
     public void render(final Graphics g, final TextureAtlas atlas, final int x,
 	    final int y) {
-	g.drawImage(atlas.getTexture(this.name), x, y, SIZE, SIZE, null);
+	g.drawImage(atlas.getTexture(this.name), x * SIZE, y * SIZE, SIZE, SIZE,
+		null);
     }
 
     /**

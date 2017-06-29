@@ -17,7 +17,7 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
     <scope>test</scope>
-</dependency>
+    </dependency>
   </dependencies>
 
   <build>
@@ -25,6 +25,13 @@
   
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
+	
+	<resources>
+	  <resource>
+		<directory>resources</directory>
+	  </resource>
+    </resources>
+	
     <plugins>
 	  <!-- JUnit surefire -->
 	  <plugin>
@@ -116,6 +123,30 @@
 			</configuration>
 		  </execution>
 		</executions>
+	  </plugin>
+	  
+	  <!-- copy resources -->
+	  <plugin>
+		<artifactId>maven-resources-plugin</artifactId>
+		<version>3.0.1</version>
+		<executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/resources/</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
 	  </plugin>
 	  
 	  <!-- generate javadocs -->

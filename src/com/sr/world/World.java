@@ -1,7 +1,13 @@
 package com.sr.world;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
+
+import javax.imageio.ImageIO;
 
 public class World {
 
@@ -10,14 +16,29 @@ public class World {
     // Holds the position of the world relative to the game window
     private double x;
     private double y;
+    // The tiles of the current level
+    private Level currentLevel;
 
     /**
-     * Creates an instance of the world with no level nor entities
+     * Creates an instance of the default world with the default level but no
+     * entities
+     * 
+     * @throws IOException
+     *             if the default level is not found
+     * 
      */
-    public World() {
+    public World() throws IOException {
 	this.entities = new HashSet<>();
 	this.x = 0;
 	this.y = 0;
+
+	final String atlasLocation = "./resources/level/default.jpg";
+	final BufferedImage referenceImage = ImageIO
+		.read(new File(atlasLocation));
+
+	final int tileSize = 16;
+	final Rectangle firstArea = new Rectangle(0, 0, tileSize, tileSize);
+	this.currentLevel = new Level(referenceImage, firstArea, 15, 15);
     }
 
     /**
@@ -38,6 +59,9 @@ public class World {
     public void render(final Graphics g) {
 	// Translates the graphics origin to match that of the world offset
 	g.translate((int) this.x, (int) this.y);
+
+	// Render the tiles
+	this.currentLevel.render(g);
 
 	this.entities.forEach((final Entity e) -> {
 	    e.render(g);
@@ -85,7 +109,7 @@ public class World {
     /**
      * Returns the number of entities present in the world
      * 
-     * @return the number of entitites in the world
+     * @return the number of entities in the world
      */
     public final int getEntityCount() {
 	return this.entities.size();
