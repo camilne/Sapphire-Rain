@@ -19,11 +19,13 @@ public class GameScreenTest {
 
     @Test
     public void canUpdateGameScreen() {
+	this.instance.init();
 	this.instance.update();
     }
 
     @Test
     public void canRenderGameScreen() {
+	this.instance.init();
 	this.instance.render();
     }
 }

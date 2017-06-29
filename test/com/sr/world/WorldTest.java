@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 import java.text.AttributedCharacterIterator;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canCreateNewDefaultWorld() {
+    public void canCreateNewDefaultWorld() throws IOException {
 	final World instance = new World();
 
 	assertEquals(0, instance.getEntityCount());
@@ -22,7 +23,7 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canAddEntityToWorld() {
+    public void canAddEntityToWorld() throws IOException {
 	final World instance = new World();
 	final Entity entity = new Entity() {
 
@@ -48,7 +49,7 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void cannotAddDuplicateEntityToWorld() {
+    public void cannotAddDuplicateEntityToWorld() throws IOException {
 	final World instance = new World();
 	final Entity entity = new Entity() {
 
@@ -73,7 +74,7 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canRemoveEntityFromWorld() {
+    public void canRemoveEntityFromWorld() throws IOException {
 	final World instance = new World();
 	final Entity entity = new Entity() {
 
@@ -100,7 +101,7 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canSafelyRemoveNonExistentEntityFromWorld() {
+    public void canSafelyRemoveNonExistentEntityFromWorld() throws IOException {
 	final World instance = new World();
 	final Entity entity = new Entity() {
 
@@ -125,7 +126,8 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canTranslateWorldWithPositiveArbitraryOffsets() {
+    public void canTranslateWorldWithPositiveArbitraryOffsets()
+	    throws IOException {
 	final World instance = new World();
 	final double x1 = 1052.352340;
 	final double y1 = 25082.23058;
@@ -146,7 +148,8 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canTranslateWorldWithNegativeArbitraryOffsets() {
+    public void canTranslateWorldWithNegativeArbitraryOffsets()
+	    throws IOException {
 	final World instance = new World();
 	final double x1 = -2232.12352;
 	final double y1 = -2583.345938;
@@ -167,7 +170,7 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canUpdateEntitiesContainedInWorld() {
+    public void canUpdateEntitiesContainedInWorld() throws IOException {
 	final World instance = new World();
 	final double offsetx = 10.0;
 	final double offsety = 2.0;
@@ -215,7 +218,7 @@ public class WorldTest {
 
     @SuppressWarnings("static-method")
     @Test
-    public void canRenderEntitiesContainedInWorld() {
+    public void canRenderEntitiesContainedInWorld() throws IOException {
 	final World instance = new World();
 	final double offsetx = 10.0;
 	final double offsety = 2.0;
@@ -357,16 +360,14 @@ public class WorldTest {
 	    }
 
 	    @Override
-	    public void drawRoundRect(final int x, final int y,
-		    final int width, final int height, final int arcWidth,
-		    final int arcHeight) {
+	    public void drawRoundRect(final int x, final int y, final int width,
+		    final int height, final int arcWidth, final int arcHeight) {
 		// Empty
 	    }
 
 	    @Override
-	    public void fillRoundRect(final int x, final int y,
-		    final int width, final int height, final int arcWidth,
-		    final int arcHeight) {
+	    public void fillRoundRect(final int x, final int y, final int width,
+		    final int height, final int arcWidth, final int arcHeight) {
 		// Empty
 	    }
 
@@ -384,13 +385,15 @@ public class WorldTest {
 
 	    @Override
 	    public void drawArc(final int x, final int y, final int width,
-		    final int height, final int startAngle, final int arcAngle) {
+		    final int height, final int startAngle,
+		    final int arcAngle) {
 		// Empty
 	    }
 
 	    @Override
 	    public void fillArc(final int x, final int y, final int width,
-		    final int height, final int startAngle, final int arcAngle) {
+		    final int height, final int startAngle,
+		    final int arcAngle) {
 		// Empty
 	    }
 

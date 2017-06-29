@@ -1,19 +1,29 @@
 package com.sr.game;
 
 import java.awt.Graphics;
+import java.io.IOException;
+
+import com.sr.world.World;
 
 public class GameScreen extends State {
 
     private static final long serialVersionUID = 1L;
 
+    private World world;
+
     @Override
     public void init() {
-	// Empty
+	try {
+	    this.world = new World();
+	} catch (final IOException e) {
+	    e.printStackTrace();
+	    System.exit(1);
+	}
     }
 
     @Override
     public void update() {
-	// Empty
+	this.world.update();
     }
 
     @Override
@@ -22,9 +32,10 @@ public class GameScreen extends State {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(final Graphics g) {
 	super.paintComponent(g);
-	// Empty
+
+	this.world.render(g);
     }
 
 }
