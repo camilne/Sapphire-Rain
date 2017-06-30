@@ -84,6 +84,8 @@
 		  <instrumentation>
 		    <excludes>
 			  <exclude>com/sr/main/Main.class</exclude>
+			  <exclude>com/sr/game/MainMenu.class</exclude>
+			  <exclude>com/sr/game/GameScreen.class</exclude>
 			</excludes>
 		  </instrumentation>
 		<check />
