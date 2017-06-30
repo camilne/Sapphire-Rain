@@ -16,7 +16,7 @@ public class EntityTest {
 	final Entity instance = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
@@ -41,7 +41,7 @@ public class EntityTest {
 	final Entity instance = new Entity(x, y) {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
@@ -66,7 +66,7 @@ public class EntityTest {
 	final Entity instance = new Entity(x, y) {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
@@ -92,7 +92,7 @@ public class EntityTest {
 	final Entity instance = new Entity(x, y, name) {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 

@@ -23,12 +23,22 @@ public class MainMenuTest {
 	    }
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
 	    @Override
 	    public void render() {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyDown(final int keyCode) {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyUp(final int keyCode) {
 		// Empty
 	    }
 
@@ -45,7 +55,7 @@ public class MainMenuTest {
 
     @Test
     public void canUpdateMainMenu() {
-	this.instance.update();
+	this.instance.update(1.0);
     }
 
     @Test

@@ -19,12 +19,22 @@ public class StateTest {
 	    }
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
 	    @Override
 	    public void render() {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyDown(final int keyCode) {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyUp(final int keyCode) {
 		// Empty
 	    }
 
@@ -38,7 +48,7 @@ public class StateTest {
 
     @Test
     public void canUpdateEmptyState() {
-	this.state.update();
+	this.state.update(1.0);
     }
 
     @Test

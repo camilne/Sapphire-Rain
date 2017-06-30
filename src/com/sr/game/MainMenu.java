@@ -58,4 +58,14 @@ public class MainMenu extends State {
 	// Empty
     }
 
+    @Override
+    public void keyDown(final int keyCode) {
+	// Empty
+    }
+
+    @Override
+    public void keyUp(final int keyCode) {
+	// Empty
+    }
+
 }

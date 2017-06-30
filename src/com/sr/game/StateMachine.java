@@ -11,7 +11,7 @@ public class StateMachine {
     private final ArrayDeque<State> stateStack;
     // Holds the bindings between a state name and the state instance
     private final HashMap<String, State> stateMap;
-    // The main window of the application. Used to revalidate the window when
+    // The main window of the application. Used to re-validate the window when
     // state changes
     private JFrame mainWindow;
 
@@ -31,7 +31,7 @@ public class StateMachine {
      * Updates the current state
      * 
      * @param deltaTime
-     *            the time in milliseconds since the last update
+     *            the time in seconds since the last update
      */
     public void update(final double deltaTime) {
 	if (getCurrentState() != null) {
@@ -74,8 +74,8 @@ public class StateMachine {
 
 	// Check if state has already been registered
 	if (this.stateMap.containsKey(stateName)) {
-	    throw new IllegalArgumentException(
-		    "State with name: " + stateName + " is already registered");
+	    throw new IllegalArgumentException("State with name: " + stateName
+		    + " is already registered");
 	}
 
 	// Register this state
@@ -132,6 +132,7 @@ public class StateMachine {
 	    // Refreshes the JFrame to recognize the new state
 	    this.mainWindow.revalidate();
 	    this.mainWindow.repaint();
+	    // Set input
 	}
 
 	// Adds the new state to the stack (making it current)

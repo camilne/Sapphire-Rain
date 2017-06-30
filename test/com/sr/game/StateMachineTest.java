@@ -29,12 +29,22 @@ public class StateMachineTest {
 	    }
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
 	    @Override
 	    public void render() {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyDown(final int keyCode) {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyUp(final int keyCode) {
 		// Empty
 	    }
 
@@ -93,12 +103,22 @@ public class StateMachineTest {
 	    }
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
 	    @Override
 	    public void render() {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyDown(final int keyCode) {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyUp(final int keyCode) {
 		// Empty
 	    }
 
@@ -144,12 +164,22 @@ public class StateMachineTest {
 	    }
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
 	    @Override
 	    public void render() {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyDown(final int keyCode) {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyUp(final int keyCode) {
 		// Empty
 	    }
 
@@ -202,12 +232,22 @@ public class StateMachineTest {
 	    }
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
 	    @Override
 	    public void render() {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyDown(final int keyCode) {
+		// Empty
+	    }
+
+	    @Override
+	    public void keyUp(final int keyCode) {
 		// Empty
 	    }
 
@@ -234,13 +274,13 @@ public class StateMachineTest {
 
     @Test
     public void canUpdateEmptyStateMachine() {
-	this.instance.update();
+	this.instance.update(1.0);
     }
 
     @Test
     public void canUpdateStateMachine() {
 	this.instance.pushState(this.emptyState);
-	this.instance.update();
+	this.instance.update(1.0);
     }
 
     @Test

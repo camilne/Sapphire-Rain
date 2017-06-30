@@ -28,7 +28,7 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
@@ -54,7 +54,7 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
@@ -79,7 +79,7 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
@@ -106,7 +106,7 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		// Empty
 	    }
 
@@ -178,7 +178,7 @@ public class WorldTest {
 	final Entity entity1 = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		this.x += offsetx;
 		this.y += offsety;
 	    }
@@ -194,7 +194,7 @@ public class WorldTest {
 	final Entity entity2 = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		this.x -= offsetx;
 		this.y -= offsety;
 	    }
@@ -207,7 +207,7 @@ public class WorldTest {
 	};
 	instance.addEntity(entity2);
 
-	instance.update();
+	instance.update(1.0);
 
 	assertEquals(offsetx, entity1.getX(), EPSILON);
 	assertEquals(offsety, entity1.getY(), EPSILON);
@@ -226,7 +226,7 @@ public class WorldTest {
 	final Entity entity1 = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		this.x += offsetx;
 		this.y += offsety;
 	    }
@@ -242,7 +242,7 @@ public class WorldTest {
 	final Entity entity2 = new Entity() {
 
 	    @Override
-	    public void update() {
+	    public void update(final double deltaTime) {
 		this.x -= offsetx;
 		this.y -= offsety;
 	    }
@@ -360,14 +360,16 @@ public class WorldTest {
 	    }
 
 	    @Override
-	    public void drawRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void drawRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
 	    @Override
-	    public void fillRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void fillRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
@@ -385,15 +387,13 @@ public class WorldTest {
 
 	    @Override
 	    public void drawArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 
 	    @Override
 	    public void fillArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 

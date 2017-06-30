@@ -25,8 +25,8 @@ public class GameScreen extends State {
 
 	    // Create the player
 	    final String playerTextureLocation = "./resources/player.png";
-	    final BufferedImage playerTexture = ImageIO
-		    .read(new File(playerTextureLocation));
+	    final BufferedImage playerTexture = ImageIO.read(new File(
+		    playerTextureLocation));
 	    final TextureAtlas playerAtlas = new TextureAtlas(playerTexture);
 	    this.player = new Player(10, 0, playerAtlas);
 	    this.world.addEntity(this.player);
@@ -51,6 +51,16 @@ public class GameScreen extends State {
 	super.paintComponent(g);
 
 	this.world.render(g);
+    }
+
+    @Override
+    public void keyDown(final int keyCode) {
+	this.player.keyDown(keyCode);
+    }
+
+    @Override
+    public void keyUp(final int keyCode) {
+	this.player.keyUp(keyCode);
     }
 
 }

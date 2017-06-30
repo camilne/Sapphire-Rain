@@ -29,29 +29,29 @@ public class Player extends Entity implements Controllable {
 	final Rectangle defaultArea = new Rectangle(72 * 4, 72 * 4, 72, 72);
 	this.atlas.registerTexture("default", defaultArea);
 
-	this.width = (int) (72 * 1.5);
-	this.height = (int) (72 * 1.5);
+	this.width = (int) (72 * 1.7);
+	this.height = (int) (72 * 1.7);
 
 	// Create default movement conditions
 	this.moveLeft = false;
 	this.moveRight = false;
 	this.moveUp = false;
 	this.moveDown = false;
-	this.speed = 1.0;
+	this.speed = 60.0;
     }
 
     @Override
     public void update(final double deltaTime) {
 	if (this.moveLeft) {
-
+	    this.x -= this.speed * deltaTime;
 	} else if (this.moveRight) {
-
+	    this.x += this.speed * deltaTime;
 	}
 
 	if (this.moveUp) {
-
+	    this.y -= this.speed * deltaTime;
 	} else if (this.moveDown) {
-
+	    this.y += this.speed * deltaTime;
 	}
     }
 
@@ -65,43 +65,42 @@ public class Player extends Entity implements Controllable {
 
     @Override
     public void keyDown(final int keyCode) {
-	final boolean leftKey = KeyEvent.VK_A == keyCode;
-	final boolean rightKey = KeyEvent.VK_D == keyCode;
-	final boolean upKey = KeyEvent.VK_W == keyCode;
-	final boolean downKey = KeyEvent.VK_S == keyCode;
-
-	if (leftKey) {
+	switch (keyCode) {
+	case KeyEvent.VK_A:
 	    this.moveLeft = true;
-	} else if (rightKey) {
+	    break;
+	case KeyEvent.VK_D:
 	    this.moveRight = true;
-	}
-
-	if (upKey) {
+	    break;
+	case KeyEvent.VK_W:
 	    this.moveUp = true;
-	} else if (downKey) {
+	    break;
+	case KeyEvent.VK_S:
 	    this.moveDown = true;
+	    break;
+	default:
+
 	}
     }
 
     @Override
     public void keyUp(final int keyCode) {
-	final boolean leftKey = KeyEvent.VK_A == keyCode;
-	final boolean rightKey = KeyEvent.VK_D == keyCode;
-	final boolean upKey = KeyEvent.VK_W == keyCode;
-	final boolean downKey = KeyEvent.VK_S == keyCode;
-
-	if (leftKey) {
+	switch (keyCode) {
+	case KeyEvent.VK_A:
 	    this.moveLeft = false;
-	} else if (rightKey) {
+	    break;
+	case KeyEvent.VK_D:
 	    this.moveRight = false;
-	}
-
-	if (upKey) {
+	    break;
+	case KeyEvent.VK_W:
 	    this.moveUp = false;
-	} else if (downKey) {
+	    break;
+	case KeyEvent.VK_S:
 	    this.moveDown = false;
-	}
+	    break;
+	default:
 
+	}
     }
 
 }
