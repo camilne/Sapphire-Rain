@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import com.sr.asset.TextureAtlas;
+import com.sr.coverage.CoverageIgnore;
 import com.sr.input.Controllable;
 
 public class Player extends Entity implements Controllable {
@@ -63,6 +64,7 @@ public class Player extends Entity implements Controllable {
 		null);
     }
 
+    @CoverageIgnore
     @Override
     public void keyDown(final int keyCode) {
 	switch (keyCode) {
@@ -83,6 +85,7 @@ public class Player extends Entity implements Controllable {
 	}
     }
 
+    @CoverageIgnore
     @Override
     public void keyUp(final int keyCode) {
 	switch (keyCode) {

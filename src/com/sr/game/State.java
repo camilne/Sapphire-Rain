@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+import com.sr.coverage.CoverageIgnore;
+
 @SuppressWarnings("serial")
 public abstract class State extends JPanel implements KeyListener {
 
@@ -12,6 +14,7 @@ public abstract class State extends JPanel implements KeyListener {
 	addKeyListener(this);
     }
 
+    @CoverageIgnore
     @Override
     public void addNotify() {
 	super.addNotify();
@@ -43,16 +46,19 @@ public abstract class State extends JPanel implements KeyListener {
 
     public abstract void keyUp(final int keyCode);
 
+    @CoverageIgnore
     @Override
     public void keyTyped(final KeyEvent e) {
 	// Empty
     }
 
+    @CoverageIgnore
     @Override
     public void keyPressed(final KeyEvent e) {
 	keyDown(e.getKeyCode());
     }
 
+    @CoverageIgnore
     @Override
     public void keyReleased(final KeyEvent e) {
 	keyUp(e.getKeyCode());
