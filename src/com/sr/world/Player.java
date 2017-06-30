@@ -43,16 +43,25 @@ public class Player extends Entity implements Controllable {
 
     @Override
     public void update(final double deltaTime) {
+	double frameSpeed = this.speed * deltaTime;
+
+	// Reduce movement if character is traveling diagonally by a factor of
+	// 1/sqrt(2)
+	if ((this.moveLeft || this.moveRight) && (this.moveUp || this.moveDown)) {
+	    final double oneOverSqrtTwo = 0.7071;
+	    frameSpeed *= oneOverSqrtTwo;
+	}
+
 	if (this.moveLeft) {
-	    this.x -= this.speed * deltaTime;
+	    this.x -= frameSpeed;
 	} else if (this.moveRight) {
-	    this.x += this.speed * deltaTime;
+	    this.x += frameSpeed;
 	}
 
 	if (this.moveUp) {
-	    this.y -= this.speed * deltaTime;
+	    this.y -= frameSpeed;
 	} else if (this.moveDown) {
-	    this.y += this.speed * deltaTime;
+	    this.y += frameSpeed;
 	}
     }
 
