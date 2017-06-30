@@ -87,6 +87,9 @@
 			  <exclude>com/sr/game/MainMenu.class</exclude>
 			  <exclude>com/sr/game/GameScreen.class</exclude>
 			</excludes>
+			<ignoreMethodAnnotations>
+              <ignoreMethodAnnotation>com.sr.coverage.CoverageIgnore</ignoreMethodAnnotation>
+            </ignoreMethodAnnotations>
 		  </instrumentation>
 		<check />
 		</configuration>
