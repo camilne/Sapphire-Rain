@@ -1,5 +1,7 @@
 package com.sr.world;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -16,6 +18,8 @@ public class PlayerTest {
     private static final int IMAGE_HEIGHT = 500;
     private static final int IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
 
+    private static final double EPSILON = 0.001;
+
     private Player instance;
 
     @BeforeEach
@@ -23,7 +27,15 @@ public class PlayerTest {
 	final BufferedImage dummyImage = new BufferedImage(IMAGE_WIDTH,
 		IMAGE_HEIGHT, IMAGE_TYPE);
 	final TextureAtlas dummyAtlas = new TextureAtlas(dummyImage);
-	this.instance = new Player(0, 0, dummyAtlas);
+	this.instance = new Player(0.0, 0.0, dummyAtlas);
+    }
+
+    @Test
+    public void canUpdatePlayer() {
+	this.instance.update(0.0);
+
+	assertEquals(0.0, this.instance.getX(), EPSILON);
+	assertEquals(0.0, this.instance.getY(), EPSILON);
     }
 
     @Test
@@ -133,14 +145,16 @@ public class PlayerTest {
 	    }
 
 	    @Override
-	    public void drawRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void drawRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
 	    @Override
-	    public void fillRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void fillRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
@@ -158,15 +172,13 @@ public class PlayerTest {
 
 	    @Override
 	    public void drawArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 
 	    @Override
 	    public void fillArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 
