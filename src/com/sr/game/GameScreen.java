@@ -37,8 +37,8 @@ public class GameScreen extends State {
     }
 
     @Override
-    public void update() {
-	this.world.update();
+    public void update(final double deltaTime) {
+	this.world.update(deltaTime);
     }
 
     @Override

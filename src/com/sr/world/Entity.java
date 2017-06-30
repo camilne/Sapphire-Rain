@@ -43,7 +43,7 @@ public abstract class Entity {
 	this.name = name;
     }
 
-    public abstract void update();
+    public abstract void update(final double deltaTime);
 
     public abstract void render(final Graphics g);
 

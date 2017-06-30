@@ -45,9 +45,9 @@ public class World {
     /**
      * Updates everything in the world
      */
-    public void update() {
+    public void update(final double deltaTime) {
 	this.entities.forEach((final Entity e) -> {
-	    e.update();
+	    e.update(deltaTime);
 	});
     }
 

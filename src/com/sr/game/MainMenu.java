@@ -43,7 +43,7 @@ public class MainMenu extends State {
     }
 
     @Override
-    public void update() {
+    public void update(final double deltaTime) {
 	// Empty
     }
 

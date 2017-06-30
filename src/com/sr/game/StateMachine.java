@@ -29,10 +29,13 @@ public class StateMachine {
 
     /**
      * Updates the current state
+     * 
+     * @param deltaTime
+     *            the time in milliseconds since the last update
      */
-    public void update() {
+    public void update(final double deltaTime) {
 	if (getCurrentState() != null) {
-	    getCurrentState().update();
+	    getCurrentState().update(deltaTime);
 	}
     }
 
@@ -71,8 +74,8 @@ public class StateMachine {
 
 	// Check if state has already been registered
 	if (this.stateMap.containsKey(stateName)) {
-	    throw new IllegalArgumentException("State with name: " + stateName
-		    + " is already registered");
+	    throw new IllegalArgumentException(
+		    "State with name: " + stateName + " is already registered");
 	}
 
 	// Register this state

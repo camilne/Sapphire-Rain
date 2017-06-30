@@ -14,8 +14,11 @@ public abstract class State extends JPanel {
     /**
      * Called at the game refresh rate before render. Should hold updating logic
      * for the state.
+     * 
+     * @param deltaTime
+     *            the time in milliseconds since the last update
      */
-    public abstract void update();
+    public abstract void update(final double deltaTime);
 
     /**
      * Called at the game refresh rate after update. Should hold rendering code
