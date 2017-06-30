@@ -10,6 +10,8 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+import com.sr.main.Main;
+
 public class World {
 
     // Holds all the entities in the world. Does not allow duplicates
@@ -115,6 +117,11 @@ public class World {
     public void translate(final double dx, final double dy) {
 	this.x += dx;
 	this.y += dy;
+    }
+
+    public void setTranslation(final double x, final double y) {
+	this.x = x + Main.WIDTH / 2.0;
+	this.y = y + Main.HEIGHT / 2.0;
     }
 
     /**

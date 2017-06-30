@@ -41,6 +41,13 @@ public class GameScreen extends State {
 	this.world.input();
 
 	this.world.update(deltaTime);
+
+	// Translate world to center on player
+	final double x = this.player.getRelativeBoundingBox().getX();
+	final double width = this.player.getRelativeBoundingBox().getWidth();
+	final double y = this.player.getRelativeBoundingBox().getY();
+	final double height = this.player.getRelativeBoundingBox().getHeight();
+	this.world.setTranslation(-x - width / 2, -y - height / 2);
     }
 
     @Override
