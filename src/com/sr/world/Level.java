@@ -3,6 +3,7 @@ package com.sr.world;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 
 import com.sr.asset.TextureAtlas;
 
@@ -42,7 +43,9 @@ public class Level {
 	this.tiles = new Tile[height][width];
 	for (int r = 0; r < this.tiles.length; r++) {
 	    for (int c = 0; c < this.tiles[0].length; c++) {
-		this.tiles[r][c] = TileFactory.create(Tile.Type.EMPTY);
+		this.tiles[r][c] = TileFactory
+			.create((Math.random() > 0.25 ? Tile.Type.EMPTY
+				: Tile.Type.TOP_LEFT_EDGE));
 	    }
 	}
     }
@@ -59,6 +62,12 @@ public class Level {
 		this.tiles[r][c].render(g, this.atlas, r, c);
 	    }
 	}
+
+	getColliders().forEach(
+		(final Rectangle collider) -> {
+		    g.drawRect(collider.x, collider.y, collider.width,
+			    collider.height);
+		});
     }
 
     /**
@@ -77,6 +86,21 @@ public class Level {
      */
     public int getHeight() {
 	return this.tiles.length;
+    }
+
+    public LinkedList<Rectangle> getColliders() {
+	final LinkedList<Rectangle> colliders = new LinkedList<>();
+
+	for (int r = 0; r < this.tiles.length; r++) {
+	    for (int c = 0; c < this.tiles[0].length; c++) {
+		final Rectangle collider = this.tiles[r][c].getType()
+			.collision();
+		collider.translate(r * Tile.SIZE, c * Tile.SIZE);
+		colliders.add(collider);
+	    }
+	}
+
+	return colliders;
     }
 
 }

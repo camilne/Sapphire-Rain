@@ -3,6 +3,8 @@ package com.sr.world;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,13 @@ public class EntityTest {
 	final Entity instance = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 
@@ -41,7 +49,13 @@ public class EntityTest {
 	final Entity instance = new Entity(x, y) {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 
@@ -66,7 +80,13 @@ public class EntityTest {
 	final Entity instance = new Entity(x, y) {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 
@@ -92,7 +112,13 @@ public class EntityTest {
 	final Entity instance = new Entity(x, y, name) {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 

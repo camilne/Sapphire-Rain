@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.text.AttributedCharacterIterator;
+import java.util.LinkedList;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,13 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 
@@ -54,7 +61,13 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 
@@ -79,7 +92,13 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 
@@ -106,7 +125,13 @@ public class WorldTest {
 	final Entity entity = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		// Empty
 	    }
 
@@ -178,7 +203,13 @@ public class WorldTest {
 	final Entity entity1 = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		this.x += offsetx;
 		this.y += offsety;
 	    }
@@ -194,7 +225,13 @@ public class WorldTest {
 	final Entity entity2 = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		this.x -= offsetx;
 		this.y -= offsety;
 	    }
@@ -226,7 +263,13 @@ public class WorldTest {
 	final Entity entity1 = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		this.x += offsetx;
 		this.y += offsety;
 	    }
@@ -242,7 +285,13 @@ public class WorldTest {
 	final Entity entity2 = new Entity() {
 
 	    @Override
-	    public void update(final double deltaTime) {
+	    public void input() {
+		// Empty
+	    }
+
+	    @Override
+	    public void update(final double deltaTime,
+		    final LinkedList<Rectangle> colliders) {
 		this.x -= offsetx;
 		this.y -= offsety;
 	    }

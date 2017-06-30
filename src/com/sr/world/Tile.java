@@ -1,6 +1,7 @@
 package com.sr.world;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import com.sr.asset.TextureAtlas;
 
@@ -10,6 +11,8 @@ public class Tile {
     public static final String PREFIX = "tile";
     // The size of the tile in the game world
     public static final int SIZE = 64;
+
+    private static final int IMG_SIZE = 23;
 
     // The name of the tile for the texture atlas
     private String name;
@@ -45,8 +48,8 @@ public class Tile {
      */
     public void render(final Graphics g, final TextureAtlas atlas, final int x,
 	    final int y) {
-	g.drawImage(atlas.getTexture(this.name), x * SIZE, y * SIZE, SIZE, SIZE,
-		null);
+	g.drawImage(atlas.getTexture(this.name), x * SIZE, y * SIZE, SIZE,
+		SIZE, null);
     }
 
     /**
@@ -68,7 +71,22 @@ public class Tile {
     }
 
     public enum Type {
-	EMPTY
+	EMPTY(0, 0, 0, 0), TOP_LEFT_EDGE(0, 0, 6, 23);
+
+	private Rectangle collision;
+
+	Type(final int x, final int y, final int width, final int height) {
+	    this.collision = new Rectangle(x, y, width, height);
+	    final double scale = (double) SIZE / IMG_SIZE;
+	    this.collision.x *= scale;
+	    this.collision.y *= scale;
+	    this.collision.width *= scale;
+	    this.collision.height *= scale;
+	}
+
+	public Rectangle collision() {
+	    return (Rectangle) this.collision.clone();
+	}
     }
 
 }

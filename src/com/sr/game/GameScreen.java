@@ -38,6 +38,8 @@ public class GameScreen extends State {
 
     @Override
     public void update(final double deltaTime) {
+	this.world.input();
+
 	this.world.update(deltaTime);
     }
 

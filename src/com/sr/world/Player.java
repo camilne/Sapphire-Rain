@@ -11,6 +11,7 @@ import com.sr.input.Controllable;
 public class Player extends Entity implements Controllable {
 
     private static final String PLAYER_NAME = "player";
+    private static final double PLAYER_SCALE = 1.7;
 
     private TextureAtlas atlas;
     private int width;
@@ -30,8 +31,8 @@ public class Player extends Entity implements Controllable {
 	final Rectangle defaultArea = new Rectangle(72 * 4, 72 * 4, 72, 72);
 	this.atlas.registerTexture("default", defaultArea);
 
-	this.width = (int) (72 * 1.7);
-	this.height = (int) (72 * 1.7);
+	this.width = (int) (72 * PLAYER_SCALE);
+	this.height = (int) (72 * PLAYER_SCALE);
 
 	// Create default movement conditions
 	this.moveLeft = false;
@@ -39,11 +40,15 @@ public class Player extends Entity implements Controllable {
 	this.moveUp = false;
 	this.moveDown = false;
 	this.speed = 60.0;
+
+	// Setup bounding box
+	this.boundingBox.setRect(27 * PLAYER_SCALE, 21 * PLAYER_SCALE,
+		20 * PLAYER_SCALE, 30 * PLAYER_SCALE);
     }
 
     @Override
-    public void update(final double deltaTime) {
-	double frameSpeed = this.speed * deltaTime;
+    public void input() {
+	double frameSpeed = this.speed;
 
 	// Reduce movement if character is traveling diagonally by a factor of
 	// 1/sqrt(2)
@@ -53,24 +58,31 @@ public class Player extends Entity implements Controllable {
 	}
 
 	if (this.moveLeft) {
-	    this.x -= frameSpeed;
+	    this.dx = -frameSpeed;
 	} else if (this.moveRight) {
-	    this.x += frameSpeed;
+	    this.dx = frameSpeed;
+	} else {
+	    this.dx = 0;
 	}
 
 	if (this.moveUp) {
-	    this.y -= frameSpeed;
+	    this.dy = -frameSpeed;
 	} else if (this.moveDown) {
-	    this.y += frameSpeed;
+	    this.dy = frameSpeed;
+	} else {
+	    this.dy = 0;
 	}
     }
 
     @Override
     public void render(final Graphics g) {
-	g.drawImage(this.atlas.getTexture("default"),
-		(int) (this.x - this.width / 2.0),
-		(int) (this.y - this.height / 2.0), this.width, this.height,
-		null);
+	g.drawImage(this.atlas.getTexture("default"), (int) (this.x),
+		(int) (this.y), this.width, this.height, null);
+
+	g.drawRect((int) this.getRelativeBoundingBox().getX(), (int) this
+		.getRelativeBoundingBox().getY(), (int) this
+		.getRelativeBoundingBox().getWidth(), (int) this
+		.getRelativeBoundingBox().getHeight());
     }
 
     @CoverageIgnore

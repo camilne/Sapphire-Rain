@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
+import java.util.LinkedList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,9 @@ public class PlayerTest {
 
     @Test
     public void canUpdatePlayer() {
-	this.instance.update(0.0);
+	final LinkedList<Rectangle> dummyColliders = new LinkedList<>();
+	final double deltaTime = 0.0;
+	this.instance.update(deltaTime, dummyColliders);
 
 	assertEquals(0.0, this.instance.getX(), EPSILON);
 	assertEquals(0.0, this.instance.getY(), EPSILON);
