@@ -131,14 +131,16 @@ public class TileTest {
 	    }
 
 	    @Override
-	    public void drawRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void drawRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
 	    @Override
-	    public void fillRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void fillRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
@@ -156,15 +158,13 @@ public class TileTest {
 
 	    @Override
 	    public void drawArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 
 	    @Override
 	    public void fillArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 

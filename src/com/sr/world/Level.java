@@ -93,10 +93,17 @@ public class Level {
 
 	for (int r = 0; r < this.tiles.length; r++) {
 	    for (int c = 0; c < this.tiles[0].length; c++) {
-		final Rectangle collider = this.tiles[r][c].getType()
-			.collision();
-		collider.translate(r * Tile.SIZE, c * Tile.SIZE);
-		colliders.add(collider);
+		final LinkedList<Rectangle> collider = this.tiles[r][c]
+			.getType().colliders();
+
+		final int row = r;
+		final int col = c;
+
+		collider.forEach((final Rectangle part) -> {
+		    part.translate(row * Tile.SIZE, col * Tile.SIZE);
+		});
+
+		colliders.addAll(collider);
 	    }
 	}
 

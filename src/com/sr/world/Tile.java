@@ -2,6 +2,7 @@ package com.sr.world;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.LinkedList;
 
 import com.sr.asset.TextureAtlas;
 
@@ -71,21 +72,31 @@ public class Tile {
     }
 
     public enum Type {
-	EMPTY(0, 0, 0, 0), TOP_LEFT_EDGE(0, 0, 6, 23);
+	EMPTY(new Rectangle()), TOP_LEFT_EDGE(new Rectangle(0, 0, 6, 23),
+		new Rectangle(0, 0, 23, 6));
 
-	private Rectangle collision;
+	private LinkedList<Rectangle> colliders;
 
-	Type(final int x, final int y, final int width, final int height) {
-	    this.collision = new Rectangle(x, y, width, height);
+	Type(final Rectangle... colliders) {
+	    this.colliders = new LinkedList<>();
 	    final double scale = (double) SIZE / IMG_SIZE;
-	    this.collision.x *= scale;
-	    this.collision.y *= scale;
-	    this.collision.width *= scale;
-	    this.collision.height *= scale;
+
+	    for (int i = 0; i < colliders.length; i++) {
+		final Rectangle collision = colliders[i];
+		collision.x *= scale;
+		collision.y *= scale;
+		collision.width *= scale;
+		collision.height *= scale;
+		this.colliders.add(collision);
+	    }
 	}
 
-	public Rectangle collision() {
-	    return (Rectangle) this.collision.clone();
+	public LinkedList<Rectangle> colliders() {
+	    final LinkedList<Rectangle> result = new LinkedList<>();
+	    this.colliders.forEach((final Rectangle collider) -> {
+		result.add((Rectangle) collider.clone());
+	    });
+	    return result;
 	}
     }
 
