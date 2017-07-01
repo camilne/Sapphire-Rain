@@ -119,6 +119,14 @@ public class World {
 	this.y += dy;
     }
 
+    /**
+     * Sets the translation of the world to center at (x, y)
+     * 
+     * @param x
+     *            the x offset
+     * @param y
+     *            the y offset
+     */
     public void setTranslation(final double x, final double y) {
 	this.x = x + Main.WIDTH / 2.0;
 	this.y = y + Main.HEIGHT / 2.0;
