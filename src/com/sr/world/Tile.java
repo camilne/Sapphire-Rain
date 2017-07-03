@@ -87,15 +87,16 @@ public class Tile {
      * colliding rectangles of the tile type.
      */
     public enum Type {
-	EMPTY(new Rectangle()), TOP_LEFT_EDGE(new Rectangle(0, 0, 6, 23),
-		new Rectangle(0, 0, 23, 6)), TOP_EDGE(
-		new Rectangle(0, 0, 23, 6)), TOP_RIGHT_EDGE(new Rectangle(0, 0,
-		23, 6), new Rectangle(17, 0, 6, 23)), LEFT_EDGE(new Rectangle(
-		0, 0, 6, 23)), RIGHT_EDGE(new Rectangle(17, 0, 6, 23)), BOTTOM_LEFT_EDGE(
-		new Rectangle(0, 0, 6, 23), new Rectangle(0, 17, 23, 6)), BOTTOM_EDGE(
-		new Rectangle(0, 17, 23, 6)), BOTTOM_RIGHT_EDGE(new Rectangle(
-		0, 17, 23, 6), new Rectangle(17, 0, 6, 23));
+	EMPTY(0, new Rectangle()), TOP_LEFT_EDGE(1, new Rectangle(0, 0, 6, 23),
+		new Rectangle(0, 0, 23, 6)), TOP_EDGE(2, new Rectangle(0, 0,
+		23, 6)), TOP_RIGHT_EDGE(3, new Rectangle(0, 0, 23, 6),
+		new Rectangle(17, 0, 6, 23)), LEFT_EDGE(4, new Rectangle(0, 0,
+		6, 23)), RIGHT_EDGE(5, new Rectangle(17, 0, 6, 23)), BOTTOM_LEFT_EDGE(
+		6, new Rectangle(0, 0, 6, 23), new Rectangle(0, 17, 23, 6)), BOTTOM_EDGE(
+		7, new Rectangle(0, 17, 23, 6)), BOTTOM_RIGHT_EDGE(8,
+		new Rectangle(0, 17, 23, 6), new Rectangle(17, 0, 6, 23));
 
+	private int id;
 	private LinkedList<Rectangle> colliders;
 
 	/**
@@ -104,7 +105,8 @@ public class Tile {
 	 * @param colliders
 	 *            the colliding rectangles
 	 */
-	Type(final Rectangle... colliders) {
+	Type(final int id, final Rectangle... colliders) {
+	    this.id = id;
 	    this.colliders = new LinkedList<>();
 	    final double scale = (double) SIZE / IMG_SIZE;
 
@@ -129,6 +131,15 @@ public class Tile {
 		result.add((Rectangle) collider.clone());
 	    });
 	    return result;
+	}
+
+	/**
+	 * Returns the id of the tile
+	 * 
+	 * @return the integer id of the tile
+	 */
+	public int id() {
+	    return this.id;
 	}
     }
 

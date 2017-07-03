@@ -11,7 +11,7 @@ public class TileFactory {
      * @return the newly created tile
      */
     public static Tile create(final Tile.Type type) {
-	return new Tile(Tile.PREFIX + type.ordinal(), type);
+	return new Tile(Tile.PREFIX + type.id(), type);
     }
 
 }
