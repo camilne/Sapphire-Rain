@@ -1,5 +1,6 @@
 package com.sr.game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.sr.asset.TextureAtlas;
+import com.sr.main.Main;
 import com.sr.world.Player;
 import com.sr.world.World;
 
@@ -58,6 +60,10 @@ public class GameScreen extends State {
     @Override
     public void paintComponent(final Graphics g) {
 	super.paintComponent(g);
+
+	// Render black background
+	g.setColor(Color.BLACK);
+	g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
 
 	this.world.render(g);
     }
