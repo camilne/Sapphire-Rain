@@ -8,15 +8,15 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<jdk.version>1.8</jdk.version>
-	<junit.version>4.12</junit.version>
+	<junit.version>5.0.0-M4</junit.version>
   </properties>
   
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
-	  <scope>test</scope>
+    <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -25,7 +25,27 @@
   
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
+	
+	<resources>
+	  <resource>
+		<directory>resources</directory>
+	  </resource>
+    </resources>
+	
     <plugins>
+	  <!-- JUnit surefire -->
+	  <plugin>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<version>2.19</version>
+		<dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>1.0.0-M4</version>
+          </dependency>
+		</dependencies>
+	  </plugin>
+	
 	  <!-- sources -->
 	  <plugin>
 	    <groupId>org.apache.maven.plugins</groupId>
@@ -61,6 +81,11 @@
 			<format>html</format>
 			<format>xml</format>
 		  </formats>
+		  <instrumentation>
+		    <excludes>
+			  <exclude>com/sr/main/Main.class</exclude>
+			</excludes>
+		  </instrumentation>
 		<check />
 		</configuration>
 	  </plugin>
@@ -98,6 +123,30 @@
 			</configuration>
 		  </execution>
 		</executions>
+	  </plugin>
+	  
+	  <!-- copy resources -->
+	  <plugin>
+		<artifactId>maven-resources-plugin</artifactId>
+		<version>3.0.1</version>
+		<executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/resources/</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
 	  </plugin>
 	  
 	  <!-- generate javadocs -->

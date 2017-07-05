@@ -20,21 +20,19 @@ A small collaborative, top-down stealth game.
 ### Dependencies
 * Java 8
 * [Build-only] Maven 3
-* [Test-only] JUnit 4
+* [Test-only] JUnit 5
 
 [//]: # (Installation instructions)
 
 ### To build from source
-1. Install a Java IDE or the JDK 8. (We use [Eclipse](https://eclipse.org/))
+1. Install a Java IDE and the JDK 8.
 2. Install [maven](https://maven.apache.org/install.html) (This project is built using the [M2Eclipse](http://www.eclipse.org/m2e/) plugin for Eclipse)
 3. Build the project using:
 > ```bash
-> mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B -V --quiet
-> or
-> mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V --quiet
+> mvn install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -B -V validate
 > ```
-or if you are using the M2Eclipse plugin, right-click `pom.xml`&gt;Run As&gt;Maven build. In the `goals` box, enter `clean install` and hit run.<br/>
-&nbsp;&nbsp;4. SapphireRain.jar is created in the `targets/` folder.
+or if you are using the M2Eclipse plugin, right-click `pom.xml`&gt;Run As&gt;Maven build. In the `goals` box, enter the same command as above, except without `mvn` and hit run.<br/>
+&nbsp;&nbsp;4. SapphireRain.jar is created in the `target/` folder.
 
 [//]: # (Testing instructions)
 
