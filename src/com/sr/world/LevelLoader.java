@@ -100,10 +100,27 @@ public class LevelLoader {
 	    tileDataMap.put(new Integer(id), type);
 	}
 
+	// Check tile data size
+	if (data.height != data.tiles.length) {
+	    throw new IOException(
+		    "Malformed tile data. Inconsistent heights. Expected: "
+			    + data.height + ", was: " + data.tiles.length);
+	}
+	if (data.width != data.tiles[0].length) {
+	    throw new IOException(
+		    "Malformed tile data. Inconsistent widths. Expected: "
+			    + data.width + ", was: " + data.tiles[0].length);
+	}
+
 	// Create tiles
 	final Tile[][] tiles = new Tile[data.height][data.width];
 	for (int r = 0; r < tiles.length; r++) {
 	    for (int c = 0; c < tiles[0].length; c++) {
+		if (!tileDataMap.containsKey(new Integer(data.tiles[r][c]))) {
+		    throw new IOException("Malformed tile data. Invalid id: "
+			    + data.tiles[r][c]);
+		}
+
 		tiles[r][c] = TileFactory.create(tileDataMap.get(new Integer(
 			data.tiles[r][c])));
 	    }
