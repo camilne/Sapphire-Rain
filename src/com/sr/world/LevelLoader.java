@@ -36,7 +36,7 @@ public class LevelLoader {
 	final String dataJson = loadFile(dataPath);
 
 	final Gson gson = new Gson();
-	final LevelData data = gson.fromJson(dataJson, LevelData.class);
+	final LevelDataJSON data = gson.fromJson(dataJson, LevelDataJSON.class);
 
 	// Load configuration file
 	final String configName = data.tileConfigName;
@@ -44,8 +44,8 @@ public class LevelLoader {
 	final String configJson = loadFile(configPath);
 
 	// Setup configuration JSON parser
-	final LevelConfiguration config = gson.fromJson(configJson,
-		LevelConfiguration.class);
+	final LevelConfigurationJSON config = gson.fromJson(configJson,
+		LevelConfigurationJSON.class);
 
 	// Load TextureAtlas
 	final String atlasName = config.imageName;
