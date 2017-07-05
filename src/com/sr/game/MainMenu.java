@@ -43,7 +43,7 @@ public class MainMenu extends State {
     }
 
     @Override
-    public void update() {
+    public void update(final double deltaTime) {
 	// Empty
     }
 
@@ -55,6 +55,16 @@ public class MainMenu extends State {
     @Override
     public void paintComponent(final Graphics g) {
 	super.paintComponent(g);
+	// Empty
+    }
+
+    @Override
+    public void keyDown(final int keyCode) {
+	// Empty
+    }
+
+    @Override
+    public void keyUp(final int keyCode) {
 	// Empty
     }
 

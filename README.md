@@ -19,6 +19,7 @@ A small collaborative, top-down stealth game.
 
 ### Dependencies
 * Java 8
+* Gson 2
 * [Build-only] Maven 3
 * [Test-only] JUnit 5
 
