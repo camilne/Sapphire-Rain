@@ -55,5 +55,119 @@
 		"id": 8,
 		"location": [8, 0],
 		"colliders": [[0, 17, 23, 6], [17, 0, 6, 23]]
+	},
+	{
+		"name": "4-way-wall",
+		"id": 9,
+		"location": [9, 0],
+		"colliders": [[6, 0, 11, 23], [0, 6, 23, 11]]
+	},
+	{
+		"name": "top-edge-wall",
+		"id": 10,
+		"location": [10, 0],
+		"colliders": [[0, 0, 23, 6], [6, 0, 11, 23]]
+	},
+	{
+		"name": "left-edge-wall",
+		"id": 11,
+		"location": [0, 1],
+		"colliders": [[0, 0, 6, 23], [0, 6, 23, 11]]
+	},
+	{
+		"name": "right-edge-wall",
+		"id": 12,
+		"location": [1, 1],
+		"colliders": [[17, 0, 6, 23], [0, 6, 23, 11]]
+	},
+	{
+		"name": "bottom-edge-wall",
+		"id": 13,
+		"location": [2, 1],
+		"colliders": [[0, 17, 23, 6], [6, 0, 11, 23]]
+	},
+	{
+		"name": "vertical-wall",
+		"id": 14,
+		"location": [3, 1],
+		"colliders": [[6, 0, 11, 23]]
+	},
+	{
+		"name": "horizontal-wall",
+		"id": 15,
+		"location": [4, 1],
+		"colliders": [[0, 6, 23, 11]]
+	},
+	{
+		"name": "top-wall-cap",
+		"id": 16,
+		"location": [5, 1],
+		"colliders": [[6, 0, 11, 12]]
+	},
+	{
+		"name": "right-wall-cap",
+		"id": 17,
+		"location": [6, 1],
+		"colliders": [[11, 6, 12, 11]]
+	},
+	{
+		"name": "left-wall-cap",
+		"id": 18,
+		"location": [7, 1],
+		"colliders": [[0, 6, 12, 11]]
+	},
+	{
+		"name": "bottom-wall-cap",
+		"id": 19,
+		"location": [8, 1],
+		"colliders": [[6, 11, 11, 12]]
+	},
+	{
+		"name": "right-wall-intersection",
+		"id": 20,
+		"location": [9, 1],
+		"colliders": [[6, 0, 11, 23], [6, 6, 17, 11]]
+	},
+	{
+		"name": "bottom-wall-intersection",
+		"id": 21,
+		"location": [10, 1],
+		"colliders": [[0, 6, 23, 11], [6, 6, 11, 17]]
+	},
+	{
+		"name": "top-wall-intersection",
+		"id": 22,
+		"location": [0, 2],
+		"colliders": [[0, 6, 23, 11], [6, 0, 11, 17]]
+	},
+	{
+		"name": "left-wall-intersection",
+		"id": 22,
+		"location": [1, 2],
+		"colliders": [[6, 0, 11, 23], [0, 6, 17, 11]]
+	},
+	{
+		"name": "top-left-wall-corner",
+		"id": 23,
+		"location": [2, 2],
+		"colliders": [[6, 6, 17, 11], [6, 6, 11, 17]]
+	},
+	{
+		"name": "top-right-wall-corner",
+		"id": 24,
+		"location": [3, 2],
+		"colliders": [[0, 6, 17, 11], [6, 6, 11, 17]]
+	},
+	{
+		"name": "bottom-left-wall-corner",
+		"id": 25,
+		"location": [4, 2],
+		"colliders": [[6, 6, 17, 11], [6, 0, 11, 17]]
+	},
+	{
+		"name": "bottom-right-wall-corner",
+		"id": 26,
+		"location": [5, 2],
+		"colliders": [[0, 6, 17, 11], [6, 0, 11, 17]]
 	}]
 }
