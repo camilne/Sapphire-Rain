@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import com.sr.asset.TextureAtlas;
+import com.sr.main.Main;
 
 public class Level {
 
@@ -32,11 +33,14 @@ public class Level {
 	    }
 	}
 
-	getColliders().forEach(
-		(final Rectangle collider) -> {
-		    g.drawRect(collider.x, collider.y, collider.width,
-			    collider.height);
-		});
+	// Draws all the colliders for debugging
+	if (Main.DEBUG) {
+	    getColliders().forEach(
+		    (final Rectangle collider) -> {
+			g.drawRect(collider.x, collider.y, collider.width,
+				collider.height);
+		    });
+	}
     }
 
     /**
