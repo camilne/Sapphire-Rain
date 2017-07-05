@@ -1,0 +1,59 @@
+{
+	"imageName": "default.png",
+	"tileSize": 23,
+	"tileData": [
+	{
+		"name": "empty",
+		"id": 0,
+		"location": [0, 0],
+		"colliders": [[]]
+	},
+	{
+		"name": "top-left-edge",
+		"id": 1,
+		"location": [1, 0],
+		"colliders": [[0, 0, 6, 23], [0, 0, 23, 6]]
+	},
+	{
+		"name": "top-edge",
+		"id": 2,
+		"location": [2, 0],
+		"colliders": [[0, 0, 23, 6]]
+	},
+		{
+		"name": "top-right-edge",
+		"id": 3,
+		"location": [3, 0],
+		"colliders": [[0, 0, 23, 6], [17, 0, 6, 23]]
+	},
+	{
+		"name": "left-edge",
+		"id": 4,
+		"location": [4, 0],
+		"colliders": [[0, 0, 6, 23]]
+	},
+	{
+		"name": "right-edge",
+		"id": 5,
+		"location": [5, 0],
+		"colliders": [[17, 0, 6, 23]]
+	},
+	{
+		"name": "bottom-left-edge",
+		"id": 6,
+		"location": [6, 0],
+		"colliders": [[0, 0, 6, 23], [0, 17, 23, 6]]
+	},
+	{
+		"name": "bottom-edge",
+		"id": 7,
+		"location": [7, 0],
+		"colliders": [[0, 17, 23, 6]]
+	},
+	{
+		"name": "bottom-right-edge",
+		"id": 8,
+		"location": [8, 0],
+		"colliders": [[0, 17, 23, 6], [17, 0, 6, 23]]
+	}]
+}

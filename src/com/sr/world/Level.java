@@ -84,6 +84,10 @@ public class Level {
 	}
     }
 
+    public Level(final TextureAtlas atlas, final Tile[][] tiles) {
+
+    }
+
     /**
      * Renders the tiles in the level at (0, 0)
      * 
