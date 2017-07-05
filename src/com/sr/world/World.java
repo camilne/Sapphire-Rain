@@ -2,12 +2,11 @@ package com.sr.world;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
+import com.sr.main.Main;
 
 public class World {
 
@@ -32,21 +31,25 @@ public class World {
 	this.x = 0;
 	this.y = 0;
 
-	final String atlasLocation = "./resources/level/default.jpg";
-	final BufferedImage referenceImage = ImageIO
-		.read(new File(atlasLocation));
+	// Create the level
+	this.currentLevel = LevelLoader.loadLevel("level1");
+    }
 
-	final int tileSize = 16;
-	final Rectangle firstArea = new Rectangle(0, 0, tileSize, tileSize);
-	this.currentLevel = new Level(referenceImage, firstArea, 15, 15);
+    public void input() {
+	this.entities.forEach((final Entity e) -> {
+	    e.input();
+	});
     }
 
     /**
      * Updates everything in the world
      */
-    public void update() {
+    public void update(final double deltaTime) {
+	final LinkedList<Rectangle> colliders = this.currentLevel
+		.getColliders();
+
 	this.entities.forEach((final Entity e) -> {
-	    e.update();
+	    e.update(deltaTime, colliders);
 	});
     }
 
@@ -104,6 +107,19 @@ public class World {
     public void translate(final double dx, final double dy) {
 	this.x += dx;
 	this.y += dy;
+    }
+
+    /**
+     * Sets the translation of the world to center at (x, y)
+     * 
+     * @param x
+     *            the x offset
+     * @param y
+     *            the y offset
+     */
+    public void setTranslation(final double x, final double y) {
+	this.x = x + Main.WIDTH / 2.0;
+	this.y = y + Main.HEIGHT / 2.0;
     }
 
     /**

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>SapphireRain</groupId>
   <artifactId>SapphireRain</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0</version>
   <packaging>jar</packaging>
   
   <properties>
@@ -12,12 +12,21 @@
   </properties>
   
   <dependencies>
+	<!-- JUnit -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
-    <scope>test</scope>
+      <scope>test</scope>
     </dependency>
+	
+	<!-- Gson -->
+	<dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.1</version>
+	  <scope>compile</scope>
+	</dependency>
   </dependencies>
 
   <build>
@@ -84,7 +93,12 @@
 		  <instrumentation>
 		    <excludes>
 			  <exclude>com/sr/main/Main.class</exclude>
+			  <exclude>com/sr/game/MainMenu.class</exclude>
+			  <exclude>com/sr/game/GameScreen.class</exclude>
 			</excludes>
+			<ignoreMethodAnnotations>
+              <ignoreMethodAnnotation>com.sr.coverage.CoverageIgnore</ignoreMethodAnnotation>
+            </ignoreMethodAnnotations>
 		  </instrumentation>
 		<check />
 		</configuration>
@@ -99,6 +113,7 @@
 		  <archive>
 		    <manifest>
 			  <addClasspath>true</addClasspath>
+			  <classpathPrefix>lib/</classpathPrefix>
 			  <mainClass>com.sr.main.Main</mainClass>
 			</manifest>
 		  </archive>
@@ -119,7 +134,7 @@
 			</goals>
 			<configuration>
 			  <includeScope>runtime</includeScope>
-			  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+			  <outputDirectory>${project.build.directory}/lib/</outputDirectory>
 			</configuration>
 		  </execution>
 		</executions>

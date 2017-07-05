@@ -6,33 +6,43 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
+import java.util.LinkedList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class LevelTest {
+import com.sr.asset.TextureAtlas;
 
-    private final static int IMAGE_WIDTH = 512;
-    private final static int IMAGE_HEIGHT = 256;
-    private final static int IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
+public class PlayerTest {
 
-    private final static int LEVEL_WIDTH = 10;
-    private final static int LEVEL_HEIGHT = 15;
+    private static final int IMAGE_WIDTH = 400;
+    private static final int IMAGE_HEIGHT = 500;
+    private static final int IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
 
-    private Level instance;
+    private static final double EPSILON = 0.001;
+
+    private Player instance;
 
     @BeforeEach
     public void setUp() throws Exception {
-	final BufferedImage dummyAtlas = new BufferedImage(IMAGE_WIDTH,
+	final BufferedImage dummyImage = new BufferedImage(IMAGE_WIDTH,
 		IMAGE_HEIGHT, IMAGE_TYPE);
-	final Rectangle dummyFirstTile = new Rectangle(0, 0, 16, 16);
-
-	this.instance = new Level(dummyAtlas, dummyFirstTile, LEVEL_WIDTH,
-		LEVEL_HEIGHT);
+	final TextureAtlas dummyAtlas = new TextureAtlas(dummyImage);
+	this.instance = new Player(0.0, 0.0, dummyAtlas);
     }
 
     @Test
-    public void canRenderLevel() {
+    public void canUpdatePlayer() {
+	final LinkedList<Rectangle> dummyColliders = new LinkedList<>();
+	final double deltaTime = 0.0;
+	this.instance.update(deltaTime, dummyColliders);
+
+	assertEquals(0.0, this.instance.getX(), EPSILON);
+	assertEquals(0.0, this.instance.getY(), EPSILON);
+    }
+
+    @Test
+    public void canRenderPlayer() {
 	final Graphics dummyGraphics = new Graphics() {
 
 	    @Override
@@ -138,14 +148,16 @@ public class LevelTest {
 	    }
 
 	    @Override
-	    public void drawRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void drawRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
 	    @Override
-	    public void fillRoundRect(final int x, final int y, final int width,
-		    final int height, final int arcWidth, final int arcHeight) {
+	    public void fillRoundRect(final int x, final int y,
+		    final int width, final int height, final int arcWidth,
+		    final int arcHeight) {
 		// Empty
 	    }
 
@@ -163,15 +175,13 @@ public class LevelTest {
 
 	    @Override
 	    public void drawArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 
 	    @Override
 	    public void fillArc(final int x, final int y, final int width,
-		    final int height, final int startAngle,
-		    final int arcAngle) {
+		    final int height, final int startAngle, final int arcAngle) {
 		// Empty
 	    }
 
@@ -262,13 +272,4 @@ public class LevelTest {
 	this.instance.render(dummyGraphics);
     }
 
-    @Test
-    public void canGetWidthOfLevel() {
-	assertEquals(LEVEL_WIDTH, this.instance.getWidth());
-    }
-
-    @Test
-    public void canGetHeightOfLevel() {
-	assertEquals(LEVEL_HEIGHT, this.instance.getHeight());
-    }
 }

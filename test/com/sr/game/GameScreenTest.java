@@ -20,7 +20,7 @@ public class GameScreenTest {
     @Test
     public void canUpdateGameScreen() {
 	this.instance.init();
-	this.instance.update();
+	this.instance.update(1.0);
     }
 
     @Test

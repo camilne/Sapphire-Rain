@@ -9,12 +9,12 @@ public class Tile {
     // The prefix to use in the TextureAtlas
     public static final String PREFIX = "tile";
     // The size of the tile in the game world
-    public static final int SIZE = 32;
+    public static final int SIZE = 64;
 
     // The name of the tile for the texture atlas
     private String name;
     // The type of tile
-    private Type type;
+    private TileType type;
 
     /**
      * Creates a new tile with the specified name for the TextureAtlas and of
@@ -25,7 +25,7 @@ public class Tile {
      * @param type
      *            the type of tile
      */
-    protected Tile(final String name, final Type type) {
+    protected Tile(final String name, final TileType type) {
 	this.name = name;
 	this.type = type;
     }
@@ -45,8 +45,8 @@ public class Tile {
      */
     public void render(final Graphics g, final TextureAtlas atlas, final int x,
 	    final int y) {
-	g.drawImage(atlas.getTexture(this.name), x * SIZE, y * SIZE, SIZE, SIZE,
-		null);
+	g.drawImage(atlas.getTexture(this.name), x * SIZE, y * SIZE, SIZE,
+		SIZE, null);
     }
 
     /**
@@ -63,12 +63,8 @@ public class Tile {
      * 
      * @return the type of the tile
      */
-    public Type getType() {
+    public TileType getType() {
 	return this.type;
-    }
-
-    public enum Type {
-	EMPTY
     }
 
 }
