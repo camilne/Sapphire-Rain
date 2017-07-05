@@ -54,21 +54,30 @@ public class LevelLoader {
 	final BufferedImage atlasImage = ImageIO.read(atlasFile);
 	final TextureAtlas atlas = new TextureAtlas(atlasImage);
 
-	// Register textures
-	final Rectangle first = new Rectangle(0, 0, config.tileSize,
-		config.tileSize);
-	final int amount = config.tileData.length; // TODO: get a list of tile
-						   // ids and use location
-	atlas.registerRepeated(Tile.PREFIX, first, amount);
-
 	// Load tile data
 	final HashMap<Integer, TileType> tileDataMap = new HashMap<>();
 	for (int i = 0; i < config.tileData.length; i++) {
 	    final TileTypeJSON tileData = config.tileData[i];
 	    final int id = tileData.id;
 	    final int imageSize = config.tileSize;
-	    final Rectangle[] colliders = new Rectangle[tileData.colliders.length];
 
+	    // Register textures
+	    final String textureName = Tile.PREFIX + String.valueOf(id);
+	    if (tileData.location.length != 2) {
+		throw new IOException(
+			"Malformed texture data. Location length of "
+				+ tileData.location.length + " for tile of id "
+				+ id);
+	    }
+	    final int tileSize = config.tileSize;
+	    final int startX = tileData.location[0] * tileSize;
+	    final int startY = tileData.location[1] * tileSize;
+	    final Rectangle area = new Rectangle(startX, startY, tileSize,
+		    tileSize);
+	    atlas.registerTexture(textureName, area);
+
+	    // Create colliders
+	    final Rectangle[] colliders = new Rectangle[tileData.colliders.length];
 	    for (int j = 0; j < colliders.length; j++) {
 		if (tileData.colliders[j].length == 0) {
 		    colliders[j] = new Rectangle();
@@ -79,9 +88,10 @@ public class LevelLoader {
 		    final int height = tileData.colliders[j][3];
 		    colliders[j] = new Rectangle(x, y, width, height);
 		} else {
-		    throw new IOException("Malformed collider data. Length of "
-			    + tileData.colliders[j].length + " for tile of id "
-			    + id);
+		    throw new IOException(
+			    "Malformed collider data. Collider length of "
+				    + tileData.colliders[j].length
+				    + " for tile of id " + id);
 		}
 	    }
 
