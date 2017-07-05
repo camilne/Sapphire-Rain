@@ -13,7 +13,7 @@ A small collaborative, top-down stealth game.
 [//]: # (Releases)
 
 ### Releases
-* No releases yet. Build from source instead.
+* [v0.1.0-alpha](https://github.com/camilne/Sapphire-Rain/releases/tag/v0.1.0-alpha)
 
 [//]: # (Dependencies)
 
