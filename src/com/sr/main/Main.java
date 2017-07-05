@@ -54,7 +54,7 @@ public class Main {
 		    stateMachine.update(deltaTime);
 		    stateMachine.render();
 
-		    System.out.println("FPS: " + (1.0 / deltaTime));
+		    // System.out.println("FPS: " + (1.0 / deltaTime));
 
 		    // Slow the refresh rate to 60Hz
 		    try {

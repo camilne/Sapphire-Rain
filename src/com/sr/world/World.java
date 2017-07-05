@@ -2,13 +2,9 @@ package com.sr.world;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
-
-import javax.imageio.ImageIO;
 
 import com.sr.main.Main;
 
@@ -36,13 +32,7 @@ public class World {
 	this.y = 0;
 
 	// Create the level
-	final String atlasLocation = "./resources/level/default.png";
-	final BufferedImage referenceImage = ImageIO.read(new File(
-		atlasLocation));
-
-	final int tileSize = 23;
-	final Rectangle firstArea = new Rectangle(0, 0, tileSize, tileSize);
-	this.currentLevel = new Level(referenceImage, firstArea, 15, 15);
+	this.currentLevel = LevelLoader.loadLevel("level1");
     }
 
     public void input() {

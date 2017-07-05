@@ -10,7 +10,7 @@ public class TileFactory {
      *            the type of tile to create
      * @return the newly created tile
      */
-    public static Tile create(final Tile.Type type) {
+    public static Tile create(final TileType type) {
 	return new Tile(Tile.PREFIX + type.id(), type);
     }
 

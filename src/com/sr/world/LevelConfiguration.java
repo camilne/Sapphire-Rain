@@ -4,6 +4,6 @@ public class LevelConfiguration {
 
     public String imageName;
     public int tileSize;
-    public TileType[] tileData;
+    public TileTypeJSON[] tileData;
 
 }
