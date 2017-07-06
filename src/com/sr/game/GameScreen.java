@@ -42,7 +42,7 @@ public class GameScreen extends State {
     public void update(final double deltaTime) {
 	this.world.input();
 
-	this.world.update(deltaTime);
+	this.world.update(deltaTime, this.player.getCX(), this.player.getCY());
 
 	// Translate world to center on player
 	final double x = this.player.getRelativeBoundingBox().getX();

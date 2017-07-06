@@ -244,7 +244,7 @@ public class WorldTest {
 	};
 	instance.addEntity(entity2);
 
-	instance.update(1.0);
+	instance.update(1.0, 0.0, 0.0);
 
 	assertEquals(offsetx, entity1.getX(), EPSILON);
 	assertEquals(offsety, entity1.getY(), EPSILON);

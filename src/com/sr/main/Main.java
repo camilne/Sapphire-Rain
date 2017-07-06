@@ -15,7 +15,7 @@ public class Main {
     // The height of the window
     public static final int HEIGHT = 720;
     // Is in debug mode
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     private Main() {
 	// Create main JFrame for the application

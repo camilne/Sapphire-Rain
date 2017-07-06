@@ -89,6 +89,14 @@ public class Player extends Entity implements Controllable {
 	}
     }
 
+    public double getCX() {
+	return this.x + this.width / 2.0;
+    }
+
+    public double getCY() {
+	return this.y + this.height / 2.0;
+    }
+
     @CoverageIgnore
     @Override
     public void keyDown(final int keyCode) {

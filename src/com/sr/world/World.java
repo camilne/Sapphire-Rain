@@ -17,6 +17,8 @@ public class World {
     private double y;
     // The tiles of the current level
     private Level currentLevel;
+    // The shadow caster
+    private ShadowCaster shadowCaster;
 
     /**
      * Creates an instance of the default world with the default level but no
@@ -33,6 +35,9 @@ public class World {
 
 	// Create the level
 	this.currentLevel = LevelLoader.loadLevel("level1");
+
+	// Create the shadow caster
+	this.shadowCaster = new ShadowCaster();
     }
 
     public void input() {
@@ -44,13 +49,16 @@ public class World {
     /**
      * Updates everything in the world
      */
-    public void update(final double deltaTime) {
+    public void update(final double deltaTime, final double sourceX,
+	    final double sourceY) {
 	final LinkedList<Rectangle> colliders = this.currentLevel
 		.getColliders();
 
 	this.entities.forEach((final Entity e) -> {
 	    e.update(deltaTime, colliders);
 	});
+
+	this.shadowCaster.cast(sourceX, sourceY, colliders);
     }
 
     /**
@@ -69,6 +77,8 @@ public class World {
 	this.entities.forEach((final Entity e) -> {
 	    e.render(g);
 	});
+
+	this.shadowCaster.render(g);
 
 	// Restores the graphics origin
 	g.translate((int) (-this.x), (int) (-this.y));
