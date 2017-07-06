@@ -1,8 +1,7 @@
 package com.sr.world;
 
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -11,43 +10,32 @@ import com.sr.main.Main;
 public class ShadowCaster {
 
     private ArrayList<LineSegment> rays;
+    private ArrayList<Point> added;
 
     public ShadowCaster() {
 	this.rays = new ArrayList<>();
-
-	/*
-	 * final double rayLength = 1.0; for (int i = 0; i < 50; i++) { final
-	 * double x = 0.0; final double y = 0.0; final double dx = rayLength *
-	 * Math.cos(i / 50.0 * 2.0 * Math.PI); final double dy = rayLength *
-	 * Math.sin(i / 50.0 * 2.0 * Math.PI); this.rays.add(new LineSegment(x,
-	 * y, dx, dy)); }
-	 */
+	this.added = new ArrayList<>();
     }
 
     public void cast(final double sourceX, final double sourceY,
 	    final LinkedList<Rectangle> colliders) {
 	this.rays.clear();
+	this.added.clear();
+
 	colliders.forEach((final Rectangle collider) -> {
 	    final Point[] points = getPoints(collider);
 
 	    for (int i = 0; i < points.length; i++) {
-		final LineSegment ray = new LineSegment(sourceX, sourceY, 0.0,
-			0.0);
-
-		// Send ray to collider corner
-		ray.setIntersectingPoint(points[i].x, points[i].y);
-		this.rays.add(ray);
-
-		// Send rays adjacent to corner to hit walls behind
-		final LineSegment ray2 = new LineSegment(sourceX, sourceY, 0.0,
-			0.0);
-		ray2.setIntersectingPoint(points[i].x + 1, points[i].y + 1);
-		this.rays.add(ray2);
-
-		final LineSegment ray3 = new LineSegment(sourceX, sourceY, 0.0,
-			0.0);
-		ray3.setIntersectingPoint(points[i].x - 1, points[i].y - 1);
-		this.rays.add(ray3);
+		addRay(sourceX, sourceY, points[i]);
+		// TODO: add better corner checking by doing angles
+		addRay(sourceX, sourceY, new Point(points[i].x + 1,
+			points[i].y + 1));
+		addRay(sourceX, sourceY, new Point(points[i].x - 1,
+			points[i].y + 1));
+		addRay(sourceX, sourceY, new Point(points[i].x - 1,
+			points[i].y - 1));
+		addRay(sourceX, sourceY, new Point(points[i].x + 1,
+			points[i].y - 1));
 	    }
 	});
 
@@ -63,6 +51,28 @@ public class ShadowCaster {
 	    });
 	});
 
+	System.out.println("Num rays: " + this.rays.size());
+    }
+
+    private void addRay(final double sourceX, final double sourceY,
+	    final Point point) {
+	// Check if point has already been added
+	boolean unique = true;
+	for (int j = 0; j < this.added.size(); j++) {
+	    if (this.added.get(j).x == point.x
+		    && this.added.get(j).y == point.y) {
+		unique = false;
+		break;
+	    }
+	}
+	if (!unique) {
+	    return;
+	}
+
+	final LineSegment ray = new LineSegment(sourceX, sourceY, 0.0, 0.0);
+	ray.setIntersectingPoint(point.x + 1, point.y + 1);
+	this.rays.add(ray);
+	this.added.add(point);
     }
 
     private static LineSegment[] getSegments(final Rectangle r) {
@@ -97,6 +107,50 @@ public class ShadowCaster {
     }
 
     public void render(final Graphics g) {
+	// Sort rays by angle clockwise
+	this.rays.sort((final LineSegment r1, final LineSegment r2) -> {
+	    final double difference = r1.getAngle() - r2.getAngle();
+	    if (difference < -0.0001) {
+		return -1;
+	    } else if (difference > 0.0001) {
+		return 1;
+	    }
+	    return 0;
+	});
+
+	// Create shadow polygon
+	final Point[] points = new Point[this.rays.size()];
+	for (int i = 0; i < points.length; i++) {
+	    points[i] = this.rays.get(i).getIntersectionPoint();
+	}
+	final int[] xpoints = new int[points.length];
+	for (int i = 0; i < xpoints.length; i++) {
+	    xpoints[i] = (int) points[i].getX();
+	}
+	final int[] ypoints = new int[points.length];
+	for (int i = 0; i < ypoints.length; i++) {
+	    ypoints[i] = (int) points[i].getY();
+	}
+	final Polygon shadow = new Polygon(xpoints, ypoints, points.length);
+
+	// Create shadow image
+	final BufferedImage shadowImage = new BufferedImage(Main.WIDTH,
+		Main.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+	final Graphics2D sg = (Graphics2D) shadowImage.getGraphics();
+	// Antialiasing
+	final RenderingHints rh = new RenderingHints(
+		RenderingHints.KEY_TEXT_ANTIALIASING,
+		RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	sg.setRenderingHints(rh);
+	sg.setColor(Color.BLACK);
+	sg.fillRect(0, 0, shadowImage.getWidth(), shadowImage.getHeight());
+	final Composite composite = AlphaComposite
+		.getInstance(AlphaComposite.DST_OUT);
+	sg.setComposite(composite);
+	sg.fillPolygon(shadow);
+
+	// Draw shadow
+	g.drawImage(shadowImage, 0, 0, null);
 
 	// Debug rays
 	if (Main.DEBUG) {
@@ -105,5 +159,4 @@ public class ShadowCaster {
 	    });
 	}
     }
-
 }

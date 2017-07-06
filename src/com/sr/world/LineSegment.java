@@ -2,6 +2,7 @@ package com.sr.world;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 public class LineSegment {
 
@@ -10,6 +11,7 @@ public class LineSegment {
     private double dx;
     private double dy;
     private double t;
+    private double angle;
 
     public LineSegment(final double x, final double y, final double dx,
 	    final double dy) {
@@ -18,6 +20,7 @@ public class LineSegment {
 	this.dx = dx;
 	this.dy = dy;
 	this.t = 1.0;
+	this.angle = calcAngle();
     }
 
     /**
@@ -77,6 +80,7 @@ public class LineSegment {
     public void setIntersectingPoint(final double px, final double py) {
 	this.dx = px - this.x;
 	this.dy = py - this.y;
+	this.angle = calcAngle();
     }
 
     public void setX(final double x) {
@@ -93,5 +97,36 @@ public class LineSegment {
 
     public void setT(final double t) {
 	this.t = t;
+    }
+
+    public Point getIntersectionPoint() {
+	final int px = (int) (this.x + this.dx * this.t);
+	final int py = (int) (this.y + this.dy * this.t);
+
+	return new Point(px, py);
+    }
+
+    public double getX() {
+	return this.x;
+    }
+
+    public double getY() {
+	return this.y;
+    }
+
+    public double getDx() {
+	return this.dx;
+    }
+
+    public double getDy() {
+	return this.dy;
+    }
+
+    private double calcAngle() {
+	return Math.atan2((float) this.dy, (float) this.dx);
+    }
+
+    public double getAngle() {
+	return this.angle;
     }
 }
