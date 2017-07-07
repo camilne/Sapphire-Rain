@@ -72,13 +72,16 @@ public class World {
 	g.translate((int) this.x, (int) this.y);
 
 	// Render the tiles
+	this.currentLevel.renderBackground(g);
+
+	this.shadowCaster.render(g, this.currentLevel.getWidth() * Tile.SIZE,
+		this.currentLevel.getHeight() * Tile.SIZE);
+
 	this.currentLevel.render(g);
 
 	this.entities.forEach((final Entity e) -> {
 	    e.render(g);
 	});
-
-	this.shadowCaster.render(g);
 
 	// Restores the graphics origin
 	g.translate((int) (-this.x), (int) (-this.y));

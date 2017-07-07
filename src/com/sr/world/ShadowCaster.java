@@ -106,13 +106,15 @@ public class ShadowCaster {
 	return points;
     }
 
-    public void render(final Graphics g) {
+    public void render(final Graphics g, final int levelWidth,
+	    final int levelHeight) {
 	// Sort rays by angle clockwise
+	final double epsilon = 1e-7;
 	this.rays.sort((final LineSegment r1, final LineSegment r2) -> {
 	    final double difference = r1.getAngle() - r2.getAngle();
-	    if (difference < -0.0001) {
+	    if (difference < -epsilon) {
 		return -1;
-	    } else if (difference > 0.0001) {
+	    } else if (difference > epsilon) {
 		return 1;
 	    }
 	    return 0;
@@ -134,15 +136,19 @@ public class ShadowCaster {
 	final Polygon shadow = new Polygon(xpoints, ypoints, points.length);
 
 	// Create shadow image
-	final BufferedImage shadowImage = new BufferedImage(Main.WIDTH,
-		Main.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+	final BufferedImage shadowImage = new BufferedImage(levelWidth,
+		levelHeight, BufferedImage.TYPE_INT_ARGB);
 	final Graphics2D sg = (Graphics2D) shadowImage.getGraphics();
 	// Antialiasing
 	final RenderingHints rh = new RenderingHints(
 		RenderingHints.KEY_TEXT_ANTIALIASING,
 		RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	rh.put(RenderingHints.KEY_ALPHA_INTERPOLATION,
+		RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+	rh.put(RenderingHints.KEY_RENDERING,
+		RenderingHints.VALUE_RENDER_QUALITY);
 	sg.setRenderingHints(rh);
-	sg.setColor(Color.BLACK);
+	sg.setColor(Color.DARK_GRAY);
 	sg.fillRect(0, 0, shadowImage.getWidth(), shadowImage.getHeight());
 	final Composite composite = AlphaComposite
 		.getInstance(AlphaComposite.DST_OUT);

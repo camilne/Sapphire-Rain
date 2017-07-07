@@ -116,18 +116,22 @@ public class LevelLoader {
 	final Tile[][] tiles = new Tile[data.height][data.width];
 	for (int r = 0; r < tiles.length; r++) {
 	    for (int c = 0; c < tiles[0].length; c++) {
-		if (!tileDataMap.containsKey(new Integer(data.tiles[r][c]))) {
+		if (!tileDataMap.containsKey(Integer.valueOf(data.tiles[r][c]))) {
 		    throw new IOException("Malformed tile data. Invalid id: "
 			    + data.tiles[r][c]);
 		}
 
-		tiles[r][c] = TileFactory.create(tileDataMap.get(new Integer(
-			data.tiles[r][c])));
+		tiles[r][c] = TileFactory.create(tileDataMap.get(Integer
+			.valueOf(data.tiles[r][c])));
 	    }
 	}
 
+	// Background tile for the level
+	final Tile backgroundTile = TileFactory.create(tileDataMap.get(Integer
+		.valueOf(0)));
+
 	// Create level
-	final Level result = new Level(atlas, tiles);
+	final Level result = new Level(atlas, tiles, backgroundTile);
 
 	return result;
     }

@@ -15,9 +15,21 @@ public class Level {
     // Access is [row][column]
     private Tile[][] tiles;
 
-    public Level(final TextureAtlas atlas, final Tile[][] tiles) {
+    private Tile backgroundTile;
+
+    public Level(final TextureAtlas atlas, final Tile[][] tiles,
+	    final Tile backgroundTile) {
 	this.atlas = atlas;
 	this.tiles = tiles;
+	this.backgroundTile = backgroundTile;
+    }
+
+    public void renderBackground(final Graphics g) {
+	for (int r = 0; r < this.tiles.length; r++) {
+	    for (int c = 0; c < this.tiles[0].length; c++) {
+		this.backgroundTile.render(g, this.atlas, c, r);
+	    }
+	}
     }
 
     /**
@@ -29,7 +41,9 @@ public class Level {
     public void render(final Graphics g) {
 	for (int r = 0; r < this.tiles.length; r++) {
 	    for (int c = 0; c < this.tiles[0].length; c++) {
-		this.tiles[r][c].render(g, this.atlas, c, r);
+		if (this.tiles[r][c].getType() != this.backgroundTile.getType()) {
+		    this.tiles[r][c].render(g, this.atlas, c, r);
+		}
 	    }
 	}
 
