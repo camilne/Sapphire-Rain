@@ -12,7 +12,7 @@
 		"name": "top-left-edge",
 		"id": 1,
 		"location": [1, 0],
-		"colliders": [[0, 0, 6, 23], [0, 0, 23, 6]]
+		"colliders": [[0, 0, 6, 23], [6, 0, 17, 6]]
 	},
 	{
 		"name": "top-edge",
@@ -24,7 +24,7 @@
 		"name": "top-right-edge",
 		"id": 3,
 		"location": [3, 0],
-		"colliders": [[0, 0, 23, 6], [17, 0, 6, 23]]
+		"colliders": [[0, 0, 23, 6], [17, 6, 6, 17]]
 	},
 	{
 		"name": "left-edge",
@@ -42,7 +42,7 @@
 		"name": "bottom-left-edge",
 		"id": 6,
 		"location": [6, 0],
-		"colliders": [[0, 0, 6, 23], [0, 17, 23, 6]]
+		"colliders": [[0, 0, 6, 17], [0, 17, 23, 6]]
 	},
 	{
 		"name": "bottom-edge",
@@ -54,37 +54,37 @@
 		"name": "bottom-right-edge",
 		"id": 8,
 		"location": [8, 0],
-		"colliders": [[0, 17, 23, 6], [17, 0, 6, 23]]
+		"colliders": [[0, 17, 23, 6], [17, 0, 6, 17]]
 	},
 	{
 		"name": "4-way-wall",
 		"id": 9,
 		"location": [9, 0],
-		"colliders": [[6, 0, 11, 23], [0, 6, 23, 11]]
+		"colliders": [[6, 0, 11, 23], [0, 6, 6, 11], [17, 6, 6, 11]]
 	},
 	{
 		"name": "top-edge-wall",
 		"id": 10,
 		"location": [10, 0],
-		"colliders": [[0, 0, 23, 6], [6, 0, 11, 23]]
+		"colliders": [[0, 0, 23, 6], [6, 6, 11, 17]]
 	},
 	{
 		"name": "left-edge-wall",
 		"id": 11,
 		"location": [0, 1],
-		"colliders": [[0, 0, 6, 23], [0, 6, 23, 11]]
+		"colliders": [[0, 0, 6, 23], [6, 6, 17, 11]]
 	},
 	{
 		"name": "right-edge-wall",
 		"id": 12,
 		"location": [1, 1],
-		"colliders": [[17, 0, 6, 23], [0, 6, 23, 11]]
+		"colliders": [[17, 0, 6, 23], [0, 6, 17, 11]]
 	},
 	{
 		"name": "bottom-edge-wall",
 		"id": 13,
 		"location": [2, 1],
-		"colliders": [[0, 17, 23, 6], [6, 0, 11, 23]]
+		"colliders": [[0, 17, 23, 6], [6, 0, 11, 17]]
 	},
 	{
 		"name": "vertical-wall",
@@ -126,7 +126,7 @@
 		"name": "right-wall-intersection",
 		"id": 20,
 		"location": [9, 1],
-		"colliders": [[6, 0, 11, 23], [6, 6, 17, 11]]
+		"colliders": [[6, 0, 11, 23], [17, 6, 6, 11]]
 	},
 	{
 		"name": "bottom-wall-intersection",
@@ -150,24 +150,24 @@
 		"name": "top-left-wall-corner",
 		"id": 23,
 		"location": [2, 2],
-		"colliders": [[6, 6, 17, 11], [6, 6, 11, 17]]
+		"colliders": [[6, 6, 17, 11], [6, 17, 11, 6]]
 	},
 	{
 		"name": "top-right-wall-corner",
 		"id": 24,
 		"location": [3, 2],
-		"colliders": [[0, 6, 17, 11], [6, 6, 11, 17]]
+		"colliders": [[0, 6, 6, 11], [6, 6, 11, 17]]
 	},
 	{
 		"name": "bottom-left-wall-corner",
 		"id": 25,
 		"location": [4, 2],
-		"colliders": [[6, 6, 17, 11], [6, 0, 11, 17]]
+		"colliders": [[6, 6, 17, 11], [6, 0, 11, 6]]
 	},
 	{
 		"name": "bottom-right-wall-corner",
 		"id": 26,
 		"location": [5, 2],
-		"colliders": [[0, 6, 17, 11], [6, 0, 11, 17]]
+		"colliders": [[0, 6, 17, 11], [6, 0, 11, 6]]
 	}]
 }
