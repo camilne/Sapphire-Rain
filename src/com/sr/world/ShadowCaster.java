@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.sr.main.Main;
+import com.sr.util.Point;
 
 public class ShadowCaster {
 
@@ -23,38 +24,45 @@ public class ShadowCaster {
 	this.added.clear();
 
 	colliders.forEach((final Rectangle collider) -> {
-	    final Point[] points = getPoints(collider);
+	    // Check if collider is empty
+		if (collider.isEmpty()) {
+		    return;
+		}
 
-	    for (int i = 0; i < points.length; i++) {
-		addRay(sourceX, sourceY, points[i]);
-		// TODO: add better corner checking by doing angles
-		addRay(sourceX, sourceY, new Point(points[i].x + 1,
-			points[i].y + 1));
-		addRay(sourceX, sourceY, new Point(points[i].x - 1,
-			points[i].y + 1));
-		addRay(sourceX, sourceY, new Point(points[i].x - 1,
-			points[i].y - 1));
-		addRay(sourceX, sourceY, new Point(points[i].x + 1,
-			points[i].y - 1));
-	    }
-	});
+		final Point[] points = getPoints(collider);
+
+		for (int i = 0; i < points.length; i++) {
+		    final LineSegment ray = addRay(sourceX, sourceY, points[i]);
+		    if (ray != null) {
+			// Send adjacent rays to shoot past corners
+			final double angleDelta = 0.01;
+			addRay(sourceX, sourceY, ray.getAngle() + angleDelta);
+			addRay(sourceX, sourceY, ray.getAngle() - angleDelta);
+		    }
+		}
+	    });
 
 	this.rays.forEach((final LineSegment ray) -> {
 	    ray.setT(Double.MAX_VALUE);
 
 	    colliders.forEach((final Rectangle collider) -> {
-		final LineSegment[] segments = getSegments(collider);
+		// Check if collider is empty
+		    if (collider.isEmpty()) {
+			return;
+		    }
 
-		for (int i = 0; i < segments.length; i++) {
-		    ray.intersection(segments[i]);
-		}
-	    });
+		    final LineSegment[] segments = getSegments(collider);
+
+		    for (int i = 0; i < segments.length; i++) {
+			ray.intersection(segments[i]);
+		    }
+		});
 	});
 
 	System.out.println("Num rays: " + this.rays.size());
     }
 
-    private void addRay(final double sourceX, final double sourceY,
+    private LineSegment addRay(final double sourceX, final double sourceY,
 	    final Point point) {
 	// Check if point has already been added
 	boolean unique = true;
@@ -66,13 +74,21 @@ public class ShadowCaster {
 	    }
 	}
 	if (!unique) {
-	    return;
+	    return null;
 	}
 
 	final LineSegment ray = new LineSegment(sourceX, sourceY, 0.0, 0.0);
 	ray.setIntersectingPoint(point.x + 1, point.y + 1);
 	this.rays.add(ray);
 	this.added.add(point);
+
+	return ray;
+    }
+
+    private void addRay(final double sourceX, final double sourceY,
+	    final double angle) {
+	final LineSegment ray = new LineSegment(sourceX, sourceY, angle);
+	this.rays.add(ray);
     }
 
     private static LineSegment[] getSegments(final Rectangle r) {
@@ -94,14 +110,14 @@ public class ShadowCaster {
     private static Point[] getPoints(final Rectangle r) {
 	final Point[] points = new Point[4];
 	// Top left
-	points[0] = new Point((int) r.getX(), (int) r.getY());
+	points[0] = new Point(r.getX(), r.getY());
 	// Top right
-	points[1] = new Point((int) (r.getX() + r.getWidth()), (int) r.getY());
+	points[1] = new Point((r.getX() + r.getWidth()), r.getY());
 	// Bottom right
-	points[2] = new Point((int) (r.getX() + r.getWidth()),
-		(int) (r.getY() + r.getHeight()));
+	points[2] = new Point((r.getX() + r.getWidth()),
+		(r.getY() + r.getHeight()));
 	// Bottom left
-	points[3] = new Point((int) r.getX(), (int) (r.getY() + r.getHeight()));
+	points[3] = new Point(r.getX(), (r.getY() + r.getHeight()));
 
 	return points;
     }
