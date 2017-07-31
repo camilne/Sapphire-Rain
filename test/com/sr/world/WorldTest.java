@@ -529,6 +529,9 @@ public class WorldTest {
 	    }
 
 	};
-	instance.render(dummyGraphics);
+
+	final double sourceX = 0.0;
+	final double sourceY = 0.0;
+	instance.render(dummyGraphics, sourceX, sourceY);
     }
 }

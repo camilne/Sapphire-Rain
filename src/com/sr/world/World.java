@@ -67,7 +67,8 @@ public class World {
      * @param g
      *            The graphics context from which to render
      */
-    public void render(final Graphics g) {
+    public void render(final Graphics g, final double sourceX,
+	    final double sourceY) {
 	// Translates the graphics origin to match that of the world offset
 	g.translate((int) this.x, (int) this.y);
 
@@ -75,7 +76,7 @@ public class World {
 	this.currentLevel.renderBackground(g);
 
 	this.shadowCaster.render(g, this.currentLevel.getWidth() * Tile.SIZE,
-		this.currentLevel.getHeight() * Tile.SIZE);
+		this.currentLevel.getHeight() * Tile.SIZE, sourceX, sourceY);
 
 	this.currentLevel.render(g);
 

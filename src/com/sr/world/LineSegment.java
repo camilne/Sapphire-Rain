@@ -43,38 +43,36 @@ public class LineSegment {
      */
     public double intersection(final LineSegment other) {
 	// Check if lines are parallel
-	if (Double.compare(this.dx, other.dx) == 0
-		&& Double.compare(this.dy, other.dy) == 0) {
+	final double thisMag = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+	final double otherMag = Math.sqrt(other.dx * other.dx + other.dy
+		* other.dy);
+	if (Double.compare(this.dx / thisMag, other.dx / otherMag) == 0
+		&& Double.compare(this.dy / thisMag, other.dy / otherMag) == 0) {
 	    return Double.MAX_VALUE;
 	}
 
-	// Check for intersection point
-	final double t2denom = other.dx * this.dy - other.dy * this.dx;
-	if (t2denom == 0) {
-	    return Double.MAX_VALUE; // TODO: think of a better resolution for
-				     // divide by zero
-	}
-	final double t2 = (this.dx * (other.y - this.y) + this.dy
-		* (this.x - other.x))
-		/ t2denom;
+	// Aliases for clarity
+	final LineSegment r = this;
+	final LineSegment s = other;
 
-	final double t1denom = this.dx;
-	if (t1denom == 0) {
-	    return Double.MAX_VALUE; // TODO: think of a better resolution for
-				     // divide by zero
+	// Check for intersection point
+	final double t2denom = s.dx * r.dy - s.dy * r.dx;
+	final double t2 = (r.dx * (s.y - r.y) + r.dy * (r.x - s.x)) / t2denom;
+
+	final double t1denom = r.dx;
+	final double t1 = (s.x + s.dx * t2 - r.x) / t1denom;
+
+	// Check if intersection occurred
+	if (t1 < 0 || t2 < 0 || t2 > 1) {
+	    return Double.MAX_VALUE;
 	}
-	final double t1 = (other.x + other.dx * t2 - this.x) / this.dx;
 
 	// Intersection occurred. Return t1 to compare for the smallest
-	if (t1 >= 0.0 && t2 >= 0.0 && t2 <= 1.0) {
-	    if (t1 < this.t) {
-		this.t = t1;
-	    }
-
-	    return t1;
+	if (t1 < this.t) {
+	    this.t = t1;
 	}
 
-	return Double.MAX_VALUE;
+	return t1;
     }
 
     public void render(final Graphics g) {

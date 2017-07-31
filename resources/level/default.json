@@ -132,7 +132,7 @@
 		"name": "bottom-wall-intersection",
 		"id": 21,
 		"location": [10, 1],
-		"colliders": [[0, 6, 23, 11], [6, 6, 11, 17]]
+		"colliders": [[0, 6, 23, 11], [6, 17, 11, 6]]
 	},
 	{
 		"name": "top-wall-intersection",

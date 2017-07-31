@@ -65,7 +65,7 @@ public class GameScreen extends State {
 	g.setColor(Color.BLACK);
 	g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
 
-	this.world.render(g);
+	this.world.render(g, this.player.getCX(), this.player.getCY());
     }
 
     @Override
