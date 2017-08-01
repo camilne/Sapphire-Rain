@@ -18,6 +18,7 @@ public class WorldTest {
     @Test
     public void canCreateNewDefaultWorld() throws IOException {
 	final World instance = new World();
+	instance.removeAllEntities();
 
 	assertEquals(0, instance.getEntityCount());
     }
@@ -26,6 +27,7 @@ public class WorldTest {
     @Test
     public void canAddEntityToWorld() throws IOException {
 	final World instance = new World();
+	instance.removeAllEntities();
 	final Entity entity = new Entity() {
 
 	    @Override
@@ -58,6 +60,8 @@ public class WorldTest {
     @Test
     public void cannotAddDuplicateEntityToWorld() throws IOException {
 	final World instance = new World();
+	instance.removeAllEntities();
+
 	final Entity entity = new Entity() {
 
 	    @Override
@@ -89,6 +93,8 @@ public class WorldTest {
     @Test
     public void canRemoveEntityFromWorld() throws IOException {
 	final World instance = new World();
+	instance.removeAllEntities();
+
 	final Entity entity = new Entity() {
 
 	    @Override
@@ -122,6 +128,8 @@ public class WorldTest {
     @Test
     public void canSafelyRemoveNonExistentEntityFromWorld() throws IOException {
 	final World instance = new World();
+	instance.removeAllEntities();
+
 	final Entity entity = new Entity() {
 
 	    @Override

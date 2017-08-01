@@ -17,11 +17,15 @@ public class Level {
 
     private Tile backgroundTile;
 
+    // Used to pass the enemies from the level loader to the world
+    public Enemy[] enemies;
+
     public Level(final TextureAtlas atlas, final Tile[][] tiles,
-	    final Tile backgroundTile) {
+	    final Tile backgroundTile, final Enemy[] enemies) {
 	this.atlas = atlas;
 	this.tiles = tiles;
 	this.backgroundTile = backgroundTile;
+	this.enemies = enemies;
     }
 
     public void renderBackground(final Graphics g) {

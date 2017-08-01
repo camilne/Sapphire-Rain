@@ -47,6 +47,9 @@ public class LevelLoader {
 	final LevelConfigurationJSON config = gson.fromJson(configJson,
 		LevelConfigurationJSON.class);
 
+	// -------------
+	// Tile Data
+	// -------------
 	// Load TextureAtlas
 	final String atlasName = config.imageName;
 	final String atlasPath = PATH + atlasName;
@@ -130,8 +133,28 @@ public class LevelLoader {
 	final Tile backgroundTile = TileFactory.create(tileDataMap.get(Integer
 		.valueOf(0)));
 
+	// -------------
+	// Entity Data
+	// -------------
+	// Load entities
+	final Enemy[] enemies = new Enemy[data.enemies.length];
+	for (int i = 0; i < enemies.length; i++) {
+	    try {
+		final String enemyClass = data.enemies[i].type;
+		final double x = data.enemies[i].x * Tile.SIZE;
+		final double y = data.enemies[i].y * Tile.SIZE;
+		final Enemy enemy = Enemy.createEnemy(enemyClass, x, y);
+		enemies[i] = enemy;
+	    } catch (final ClassNotFoundException e) {
+		e.printStackTrace();
+		throw new IOException(
+			"Malformed Entity data. Invalid class name: "
+				+ data.enemies[i].type);
+	    }
+	}
+
 	// Create level
-	final Level result = new Level(atlas, tiles, backgroundTile);
+	final Level result = new Level(atlas, tiles, backgroundTile, enemies);
 
 	return result;
     }

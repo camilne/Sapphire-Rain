@@ -36,6 +36,12 @@ public class World {
 	// Create the level
 	this.currentLevel = LevelLoader.loadLevel("level1");
 
+	// Add enemies to world
+	final Enemy[] enemies = this.currentLevel.enemies;
+	for (int i = 0; i < enemies.length; i++) {
+	    this.entities.add(enemies[i]);
+	}
+
 	// Create the shadow caster
 	this.shadowCaster = new ShadowCaster();
     }
@@ -75,14 +81,14 @@ public class World {
 	// Render the tiles
 	this.currentLevel.renderBackground(g);
 
+	this.entities.forEach((final Entity e) -> {
+	    e.render(g);
+	});
+
 	this.shadowCaster.render(g, this.currentLevel.getWidth() * Tile.SIZE,
 		this.currentLevel.getHeight() * Tile.SIZE, sourceX, sourceY);
 
 	this.currentLevel.render(g);
-
-	this.entities.forEach((final Entity e) -> {
-	    e.render(g);
-	});
 
 	// Restores the graphics origin
 	g.translate((int) (-this.x), (int) (-this.y));
@@ -108,6 +114,10 @@ public class World {
      */
     public boolean removeEntity(final Entity e) {
 	return this.entities.remove(e);
+    }
+
+    public void removeAllEntities() {
+	this.entities.clear();
     }
 
     /**
