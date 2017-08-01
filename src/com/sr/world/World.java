@@ -1,5 +1,6 @@
 package com.sr.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.IOException;
@@ -92,6 +93,16 @@ public class World {
 		this.currentLevel.getHeight() * Tile.SIZE, sourceX, sourceY);
 
 	this.currentLevel.render(g);
+
+	// Debug entity bounding boxes
+	if (Main.DEBUG) {
+	    g.setColor(Color.BLACK);
+	    this.entities.forEach((final Entity e) -> {
+		final Rectangle bbox = e.getRelativeBoundingBox();
+		g.drawRect((int) bbox.getX(), (int) bbox.getY(),
+			(int) bbox.getWidth(), (int) bbox.getHeight());
+	    });
+	}
 
 	// Restores the graphics origin
 	g.translate((int) (-this.x), (int) (-this.y));

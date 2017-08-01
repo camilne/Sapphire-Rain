@@ -1,6 +1,7 @@
 package com.sr.world;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.io.IOException;
 
 import com.sr.asset.TextureAtlas;
@@ -71,6 +72,7 @@ public abstract class Enemy extends Entity {
 	this.defaultTexture = defaultTexture;
 	this.atlas = atlas;
 	this.moveDirection = MoveDirection.NONE;
+	this.boundingBox = new Rectangle(2, 8, 28, 38);
     }
 
     /**
