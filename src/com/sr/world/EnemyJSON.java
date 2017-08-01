@@ -5,8 +5,8 @@ public class EnemyJSON {
     // The class name of the entity
     public String type;
     // The x-coordinate in tiles
-    public int x;
+    public double x;
     // The y-coordinate in tiles
-    public int y;
+    public double y;
 
 }
