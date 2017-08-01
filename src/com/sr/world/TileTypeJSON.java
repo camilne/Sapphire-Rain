@@ -10,5 +10,7 @@ public class TileTypeJSON {
     public int[] location;
     // The collider location data for the rectangle colliders
     public int[][] colliders;
+    // Whether or not the tile is occupied for pathfinding
+    public boolean occupied;
 
 }

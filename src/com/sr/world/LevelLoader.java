@@ -63,6 +63,7 @@ public class LevelLoader {
 	    final TileTypeJSON tileData = config.tileData[i];
 	    final int id = tileData.id;
 	    final int imageSize = config.tileSize;
+	    final boolean occupied = tileData.occupied;
 
 	    // Register textures
 	    final String textureName = Tile.PREFIX + String.valueOf(id);
@@ -98,7 +99,8 @@ public class LevelLoader {
 		}
 	    }
 
-	    final TileType type = new TileType(id, imageSize, colliders);
+	    final TileType type = new TileType(id, imageSize, occupied,
+		    colliders);
 
 	    tileDataMap.put(new Integer(id), type);
 	}

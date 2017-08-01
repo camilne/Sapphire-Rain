@@ -10,6 +10,7 @@ import java.util.LinkedList;
 public class TileType {
     private int id;
     private LinkedList<Rectangle> colliders;
+    private boolean occupied;
 
     /**
      * Create a type with the specified colliding rectangles
@@ -17,9 +18,12 @@ public class TileType {
      * @param colliders
      *            the colliding rectangles
      */
-    TileType(final int id, final int imageSize, final Rectangle... colliders) {
+    TileType(final int id, final int imageSize, final boolean occupied,
+	    final Rectangle... colliders) {
 	this.id = id;
 	this.colliders = new LinkedList<>();
+	this.occupied = occupied;
+
 	final double scale = (double) Tile.SIZE / imageSize;
 
 	for (int i = 0; i < colliders.length; i++) {
@@ -52,5 +56,14 @@ public class TileType {
      */
     public int id() {
 	return this.id;
+    }
+
+    /**
+     * Returns whether or not the tile is occupied for pathfinding.
+     * 
+     * @return True if the tile is occupied, false otherwise.
+     */
+    public boolean isOccupied() {
+	return this.occupied;
     }
 }
