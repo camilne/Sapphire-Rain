@@ -11,6 +11,15 @@ import com.sr.asset.TextureAtlas;
 
 public class BasicEnemy extends Enemy {
 
+    /**
+     * Creates an instance of a basic enemy. <code>defaultTexture</code> is
+     * assigned to "default", and <code>atlasLocation</code> is assigned to
+     * "./resources/basic_enemy.png".
+     * 
+     * @return A new instance of a BasicEnemy.
+     * @throws IOException
+     *             If the texture atlas location does not exist.
+     */
     public static BasicEnemy create() throws IOException {
 	final String defaultTexture = "default";
 	final String atlasLocation = "./resources/basic_enemy.png";
@@ -29,6 +38,8 @@ public class BasicEnemy extends Enemy {
 
     @Override
     protected void ai() {
+	// TODO: Remove and update with better ai.
+	// Keep the basic enemy moving between two points.
 	if (this.x > 8 * Tile.SIZE) {
 	    this.moveDirection = MoveDirection.LEFT;
 	}

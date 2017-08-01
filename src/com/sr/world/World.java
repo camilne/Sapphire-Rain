@@ -46,6 +46,9 @@ public class World {
 	this.shadowCaster = new ShadowCaster();
     }
 
+    /**
+     * Gather input from every entity.
+     */
     public void input() {
 	this.entities.forEach((final Entity e) -> {
 	    e.input();
@@ -116,6 +119,9 @@ public class World {
 	return this.entities.remove(e);
     }
 
+    /**
+     * Removes all the entities from the world
+     */
     public void removeAllEntities() {
 	this.entities.clear();
     }

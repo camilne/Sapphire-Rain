@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import com.sr.asset.TextureAtlas;
 import com.sr.main.Main;
+import com.sr.world.Enemy;
 import com.sr.world.Player;
 import com.sr.world.World;
 
@@ -40,6 +41,7 @@ public class GameScreen extends State {
 
     @Override
     public void update(final double deltaTime) {
+	Enemy.updatePlayerData(this.player);
 	this.world.input();
 
 	this.world.update(deltaTime, this.player.getCX(), this.player.getCY());
