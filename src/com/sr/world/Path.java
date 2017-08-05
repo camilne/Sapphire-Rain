@@ -3,6 +3,8 @@ package com.sr.world;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.sr.coverage.CoverageIgnore;
+
 public class Path {
 
     private ArrayList<Node> path;
@@ -59,6 +61,9 @@ public class Path {
 	return null;
     }
 
+    /**
+     * Reversed the order of the nodes in the path.
+     */
     public void reverse() {
 	final ArrayList<Node> reversed = new ArrayList<>();
 	for (final Node node : this.path) {
@@ -86,6 +91,7 @@ public class Path {
     }
 
     @Override
+    @CoverageIgnore
     public String toString() {
 	final StringBuilder sb = new StringBuilder();
 	sb.append("Path{\n");
