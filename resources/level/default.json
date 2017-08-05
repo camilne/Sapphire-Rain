@@ -165,35 +165,35 @@
 	},
 	{
 		"name": "left-wall-intersection",
-		"id": 22,
+		"id": 23,
 		"location": [1, 2],
 		"colliders": [[6, 0, 11, 23], [0, 6, 17, 11]],
 		"occupied": "true"
 	},
 	{
 		"name": "top-left-wall-corner",
-		"id": 23,
+		"id": 24,
 		"location": [2, 2],
 		"colliders": [[6, 6, 17, 11], [6, 17, 11, 6]],
 		"occupied": "true"
 	},
 	{
 		"name": "top-right-wall-corner",
-		"id": 24,
+		"id": 25,
 		"location": [3, 2],
 		"colliders": [[0, 6, 6, 11], [6, 6, 11, 17]],
 		"occupied": "true"
 	},
 	{
 		"name": "bottom-left-wall-corner",
-		"id": 25,
+		"id": 26,
 		"location": [4, 2],
 		"colliders": [[6, 6, 17, 11], [6, 0, 11, 6]],
 		"occupied": "true"
 	},
 	{
 		"name": "bottom-right-wall-corner",
-		"id": 26,
+		"id": 27,
 		"location": [5, 2],
 		"colliders": [[0, 6, 17, 11], [6, 0, 11, 6]],
 		"occupied": "true"
