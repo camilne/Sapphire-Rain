@@ -43,6 +43,7 @@ public class BasicEnemy extends Enemy {
     private Behavior behavior;
     private Path patrolRoute;
     private Node targetNode;
+    private Path currentPath;
 
     protected BasicEnemy(final String defaultTexture, final TextureAtlas atlas) {
 	super(defaultTexture, atlas);
@@ -51,12 +52,32 @@ public class BasicEnemy extends Enemy {
 
     @Override
     protected void ai() {
+	this.direction.x = 0;
+	this.direction.y = 0;
+
 	switch (this.behavior) {
 	case PATROL:
 	    if (this.patrolRoute != null) {
 		// Start the route if it is not started.
 		if (this.targetNode == null) {
-		    this.targetNode = this.patrolRoute.getStart();
+		    if (this.currentPath == null
+			    || !this.currentPath.equals(this.patrolRoute)) {
+			final Node start = Pathfinder.getNode(this.getCX(),
+				this.getCY());
+			try {
+			    this.currentPath = this.pathfinder.getPath(start,
+				    this.patrolRoute.getStart());
+			    if (this.currentPath != null) {
+				this.targetNode = this.currentPath.getStart();
+			    }
+			} catch (final InvalidPathException e) {
+			    e.printStackTrace();
+			}
+		    }
+
+		    if (this.targetNode == null) {
+			break;
+		    }
 		}
 
 		// Set the direction of the enemy to the target node.
@@ -70,10 +91,15 @@ public class BasicEnemy extends Enemy {
 
 		// Move to next node if the target node has been reached.
 		if (reachedNode(this.targetNode)) {
-		    this.targetNode = this.patrolRoute.getNext(this.targetNode);
+		    if (this.targetNode.equals(this.patrolRoute.getStart())) {
+			this.currentPath = this.patrolRoute;
+		    }
+
+		    this.targetNode = this.currentPath.getNext(this.targetNode);
 
 		    if (this.targetNode == null) {
-			this.patrolRoute.reverse();
+			this.currentPath.reverse();
+			this.targetNode = this.currentPath.getStart();
 		    }
 		}
 	    }

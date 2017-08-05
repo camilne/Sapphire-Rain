@@ -15,9 +15,9 @@
 	"enemies": [
 		{
 			"type": "BasicEnemy",
-			"x": "9",
-			"y": "6",
-			"patrolStart": [9, 6],
+			"x": "6",
+			"y": "4",
+			"patrolStart": [8, 4],
 			"patrolGoal": [1, 2]
 		}
 	]
