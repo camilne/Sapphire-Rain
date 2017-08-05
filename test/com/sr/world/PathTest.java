@@ -83,4 +83,15 @@ public class PathTest {
 	assertEquals(this.node3, goal);
     }
 
+    @Test
+    public void canReversePath() {
+	this.instance.reverse();
+
+	final ArrayList<Node> nodes = this.instance.getPath();
+
+	assertEquals(this.node3, nodes.get(0));
+	assertEquals(this.node2, nodes.get(1));
+	assertEquals(this.node1, nodes.get(2));
+    }
+
 }
