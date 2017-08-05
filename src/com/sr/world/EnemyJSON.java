@@ -8,5 +8,8 @@ public class EnemyJSON {
     public double x;
     // The y-coordinate in tiles
     public double y;
+    // The patrol coordinates
+    public int[] patrolStart;
+    public int[] patrolGoal;
 
 }

@@ -59,6 +59,14 @@ public class Path {
 	return null;
     }
 
+    public void reverse() {
+	final ArrayList<Node> reversed = new ArrayList<>();
+	for (final Node node : this.path) {
+	    reversed.add(0, node);
+	}
+	this.path = reversed;
+    }
+
     /**
      * Returns the start node in the path.
      * 
@@ -75,6 +83,19 @@ public class Path {
      */
     public Node getGoal() {
 	return this.path.get(this.path.size() - 1);
+    }
+
+    @Override
+    public String toString() {
+	final StringBuilder sb = new StringBuilder();
+	sb.append("Path{\n");
+	for (final Node node : this.path) {
+	    sb.append("\t");
+	    sb.append(node.toString());
+	    sb.append("\n");
+	}
+	sb.append("}");
+	return sb.toString();
     }
 
 }

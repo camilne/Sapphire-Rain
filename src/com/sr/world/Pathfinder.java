@@ -17,12 +17,12 @@ public class Pathfinder {
      *            The tile map in which to find paths.
      */
     public Pathfinder(final Tile[][] tiles) {
-	this.nodes = new Node[tiles.length][tiles[0].length];
+	this.nodes = new Node[tiles[0].length][tiles.length];
 
 	for (int x = 0; x < tiles.length; x++) {
 	    for (int y = 0; y < tiles[0].length; y++) {
 		final boolean occupied = tiles[x][y].getType().isOccupied();
-		this.nodes[x][y] = new Node(x, y, occupied);
+		this.nodes[y][x] = new Node(x, y, occupied);
 	    }
 	}
     }
@@ -232,5 +232,11 @@ public class Pathfinder {
 	}
 
 	return null;
+    }
+
+    public static Node getNode(final double x, final double y) {
+	final int nodeX = (int) (x / Tile.SIZE);
+	final int nodeY = (int) (y / Tile.SIZE);
+	return new Node(nodeX, nodeY);
     }
 }

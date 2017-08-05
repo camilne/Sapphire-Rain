@@ -1,10 +1,10 @@
 package com.sr.world;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.io.IOException;
 
 import com.sr.asset.TextureAtlas;
+import com.sr.util.Vector2;
 
 public abstract class Enemy extends Entity {
 
@@ -26,22 +26,17 @@ public abstract class Enemy extends Entity {
      *             If the <code>enemyClass</code> does not exist.
      */
     public static Enemy createEnemy(final String enemyClass, final double x,
-	    final double y) throws IOException, ClassNotFoundException {
+	    final double y, final Pathfinder pathfinder) throws IOException,
+	    ClassNotFoundException {
 	if (enemyClass.equals(BasicEnemy.class.getSimpleName())) {
 	    final BasicEnemy enemy = BasicEnemy.create();
 	    enemy.x = x;
 	    enemy.y = y;
+	    enemy.setPathfinder(pathfinder);
 	    return enemy;
 	}
 
 	throw new ClassNotFoundException("Enemy class not found: " + enemyClass);
-    }
-
-    /**
-     * The direction in which to move the enemy during the update loop.
-     */
-    protected enum MoveDirection {
-	LEFT, UP, RIGHT, DOWN, NONE
     }
 
     // The speed of the enemy in pixels/second
@@ -52,11 +47,14 @@ public abstract class Enemy extends Entity {
     protected static double playerX = 0;
     protected static double playerY = 0;
     // The direction this enemy is moving in.
-    protected MoveDirection moveDirection;
+    protected Vector2 direction;
 
     // The name of the default texture on the TextureAtlas.
     private String defaultTexture;
     private TextureAtlas atlas;
+
+    // The pathfinder
+    protected Pathfinder pathfinder;
 
     /**
      * Creates an instance of the enemy with <code>defaultTexture</code> as the
@@ -71,13 +69,14 @@ public abstract class Enemy extends Entity {
     protected Enemy(final String defaultTexture, final TextureAtlas atlas) {
 	this.defaultTexture = defaultTexture;
 	this.atlas = atlas;
-	this.moveDirection = MoveDirection.NONE;
-	this.boundingBox = new Rectangle(2, 8, 28, 38);
+	// this.boundingBox = new Rectangle();
+	this.pathfinder = null;
+	this.direction = new Vector2();
     }
 
     /**
-     * Used to process the ai in a child class. Should update state variables
-     * and the <code>moveDirection</code> if needed.
+     * Used to process the ai. Should update state variables and the
+     * <code>moveDirection</code> if needed.
      */
     protected abstract void ai();
 
@@ -85,31 +84,20 @@ public abstract class Enemy extends Entity {
     public void input() {
 	ai();
 
-	this.dx = 0;
-	this.dy = 0;
+	this.direction.normalize();
 
-	switch (this.moveDirection) {
-	case LEFT:
-	    this.dx = -speed;
-	    break;
-	case UP:
-	    this.dy = -speed;
-	    break;
-	case RIGHT:
-	    this.dx = speed;
-	    break;
-	case DOWN:
-	    this.dy = -speed;
-	    break;
-	case NONE:
-	    break;
-	}
+	this.dx = this.direction.x * speed;
+	this.dy = this.direction.y * speed;
     }
 
     @Override
     public void render(final Graphics g) {
 	g.drawImage(this.atlas.getTexture(this.defaultTexture), (int) this.x,
 		(int) this.y, null);
+    }
+
+    public void setPathfinder(final Pathfinder pathfinder) {
+	this.pathfinder = pathfinder;
     }
 
     /**
@@ -122,5 +110,7 @@ public abstract class Enemy extends Entity {
 	playerX = player.getCX();
 	playerY = player.getCY();
     }
+
+    public abstract void setPatrolRoute(final Node start, final Node goal);
 
 }

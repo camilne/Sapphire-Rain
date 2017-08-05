@@ -135,6 +135,9 @@ public class LevelLoader {
 	final Tile backgroundTile = TileFactory.create(tileDataMap.get(Integer
 		.valueOf(0)));
 
+	// Create pathfinder
+	final Pathfinder pathfinder = new Pathfinder(tiles);
+
 	// -------------
 	// Entity Data
 	// -------------
@@ -145,7 +148,13 @@ public class LevelLoader {
 		final String enemyClass = data.enemies[i].type;
 		final double x = data.enemies[i].x * Tile.SIZE;
 		final double y = data.enemies[i].y * Tile.SIZE;
-		final Enemy enemy = Enemy.createEnemy(enemyClass, x, y);
+		final Enemy enemy = Enemy.createEnemy(enemyClass, x, y,
+			pathfinder);
+		final Node start = new Node(data.enemies[i].patrolStart[0],
+			data.enemies[i].patrolStart[1]);
+		final Node goal = new Node(data.enemies[i].patrolGoal[0],
+			data.enemies[i].patrolGoal[1]);
+		enemy.setPatrolRoute(start, goal);
 		enemies[i] = enemy;
 	    } catch (final ClassNotFoundException e) {
 		e.printStackTrace();

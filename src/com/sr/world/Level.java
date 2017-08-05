@@ -1,5 +1,6 @@
 package com.sr.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -53,6 +54,7 @@ public class Level {
 
 	// Draws all the colliders for debugging
 	if (Main.DEBUG) {
+	    g.setColor(Color.BLACK);
 	    getColliders().forEach(
 		    (final Rectangle collider) -> {
 			g.drawRect(collider.x, collider.y, collider.width,

@@ -1,5 +1,7 @@
 package com.sr.world;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,6 +10,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.sr.asset.TextureAtlas;
+import com.sr.coverage.CoverageIgnore;
+import com.sr.main.Main;
 
 public class BasicEnemy extends Enemy {
 
@@ -32,24 +36,97 @@ public class BasicEnemy extends Enemy {
 	return new BasicEnemy(defaultTexture, atlas);
     }
 
+    private enum Behavior {
+	PATROL
+    }
+
+    private Behavior behavior;
+    private Path patrolRoute;
+    private Node targetNode;
+
     protected BasicEnemy(final String defaultTexture, final TextureAtlas atlas) {
 	super(defaultTexture, atlas);
+	this.behavior = Behavior.PATROL;
     }
 
     @Override
     protected void ai() {
-	// TODO: Remove and update with better ai.
-	// Keep the basic enemy moving between two points.
-	if (this.x > 8 * Tile.SIZE) {
-	    this.moveDirection = MoveDirection.LEFT;
-	}
+	switch (this.behavior) {
+	case PATROL:
+	    if (this.patrolRoute != null) {
+		if (this.targetNode == null) {
+		    this.targetNode = this.patrolRoute.getStart();
+		}
 
-	if (this.x < 1 * Tile.SIZE) {
-	    this.moveDirection = MoveDirection.RIGHT;
-	}
+		final double ndx = this.targetNode.getX() * Tile.SIZE - this.x;
+		final double ndy = this.targetNode.getY() * Tile.SIZE - this.y;
 
-	if (this.moveDirection == MoveDirection.NONE) {
-	    this.moveDirection = MoveDirection.LEFT;
+		this.direction.x = ndx;
+		this.direction.y = ndy;
+
+		if (reachedNode(this.targetNode)) {
+		    this.targetNode = this.patrolRoute.getNext(this.targetNode);
+
+		    if (this.targetNode == null) {
+			this.patrolRoute.reverse();
+		    }
+		}
+	    }
+	    break;
+	default:
+	    this.behavior = Behavior.PATROL;
+	}
+    }
+
+    /**
+     * Returns whether or not the node has been reached. The enemy reaches the
+     * node when it is within 2 pixels of the node.
+     * 
+     * @param node
+     *            The node to check against.
+     * @return True if the enemy is within the radius of the node.
+     */
+    @CoverageIgnore
+    private boolean reachedNode(final Node node) {
+	final double radius = 2; // Pixels
+
+	final double ndx = node.getX() * Tile.SIZE - this.x;
+	final double ndy = node.getY() * Tile.SIZE - this.y;
+
+	return ndx * ndx + ndy * ndy < radius * radius;
+    }
+
+    @Override
+    public void render(final Graphics g) {
+	super.render(g);
+
+	if (Main.DEBUG) {
+	    if (this.patrolRoute != null) {
+		g.setColor(Color.BLUE);
+
+		Node cNode = this.patrolRoute.getStart();
+		Node nNode = this.patrolRoute.getNext(cNode);
+		while (nNode != null) {
+		    final int x1 = cNode.getX() * Tile.SIZE;
+		    final int y1 = cNode.getY() * Tile.SIZE;
+		    final int x2 = nNode.getX() * Tile.SIZE;
+		    final int y2 = nNode.getY() * Tile.SIZE;
+
+		    g.drawLine(x1, y1, x2, y2);
+
+		    cNode = nNode;
+		    nNode = this.patrolRoute.getNext(cNode);
+		}
+	    }
+	}
+    }
+
+    @Override
+    public void setPatrolRoute(final Node start, final Node goal) {
+	try {
+	    this.patrolRoute = this.pathfinder.getPath(start, goal);
+	} catch (final InvalidPathException e) {
+	    e.printStackTrace();
 	}
     }
 

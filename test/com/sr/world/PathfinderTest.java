@@ -16,8 +16,8 @@ public class PathfinderTest {
     @SuppressWarnings("static-method")
     @Test
     public void canLocateSimpleValidPath() throws InvalidPathException {
-	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT) },
-		{ new Tile("", DEFAULT) }, { new Tile("", DEFAULT) } };
+	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT),
+		new Tile("", DEFAULT), new Tile("", DEFAULT) } };
 
 	final Pathfinder pathfinder = new Pathfinder(tiles);
 	final Node start = new Node(0, 0);
@@ -32,8 +32,8 @@ public class PathfinderTest {
     @SuppressWarnings("static-method")
     @Test
     public void returnsNullWhenNoValidPathExists() throws InvalidPathException {
-	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT) },
-		{ new Tile("", BLOCKED) }, { new Tile("", DEFAULT) } };
+	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT),
+		new Tile("", BLOCKED), new Tile("", DEFAULT) } };
 
 	final Pathfinder pathfinder = new Pathfinder(tiles);
 	final Node start = new Node(0, 0);
@@ -46,8 +46,8 @@ public class PathfinderTest {
     @SuppressWarnings("static-method")
     @Test
     public void throwsInvalidPathExceptionWithInvalidStartNode() {
-	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT) },
-		{ new Tile("", DEFAULT) }, { new Tile("", DEFAULT) } };
+	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT),
+		new Tile("", DEFAULT), new Tile("", DEFAULT) } };
 
 	final Pathfinder pathfinder = new Pathfinder(tiles);
 	final Node start = new Node(-1, 5);
@@ -61,8 +61,8 @@ public class PathfinderTest {
     @SuppressWarnings("static-method")
     @Test
     public void throwsInvalidPathExceptionWithInvalidGoalNode() {
-	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT) },
-		{ new Tile("", DEFAULT) }, { new Tile("", DEFAULT) } };
+	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT),
+		new Tile("", DEFAULT), new Tile("", DEFAULT) } };
 
 	final Pathfinder pathfinder = new Pathfinder(tiles);
 	final Node start = new Node(0, 0);
@@ -77,8 +77,8 @@ public class PathfinderTest {
     @Test
     public void returnsStartNodeWhenStartNodeIsTheGoalNode()
 	    throws InvalidPathException {
-	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT) },
-		{ new Tile("", DEFAULT) }, { new Tile("", DEFAULT) } };
+	final Tile[][] tiles = new Tile[][] { { new Tile("", DEFAULT),
+		new Tile("", DEFAULT), new Tile("", DEFAULT) } };
 
 	final Pathfinder pathfinder = new Pathfinder(tiles);
 	final Node start = new Node(0, 0);
@@ -102,7 +102,7 @@ public class PathfinderTest {
 
 	final Pathfinder pathfinder = new Pathfinder(tiles);
 	final Node start = new Node(0, 0);
-	final Node goal = new Node(0, 3);
+	final Node goal = new Node(3, 0);
 
 	final Path path = pathfinder.getPath(start, goal);
 	assertNotEquals(null, path);
