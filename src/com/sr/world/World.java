@@ -1,5 +1,6 @@
 package com.sr.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.IOException;
@@ -17,6 +18,8 @@ public class World {
     private double y;
     // The tiles of the current level
     private Level currentLevel;
+    // The shadow caster
+    private ShadowCaster shadowCaster;
 
     /**
      * Creates an instance of the default world with the default level but no
@@ -33,8 +36,20 @@ public class World {
 
 	// Create the level
 	this.currentLevel = LevelLoader.loadLevel("level1");
+
+	// Add enemies to world
+	final Enemy[] enemies = this.currentLevel.enemies;
+	for (int i = 0; i < enemies.length; i++) {
+	    this.entities.add(enemies[i]);
+	}
+
+	// Create the shadow caster
+	this.shadowCaster = new ShadowCaster();
     }
 
+    /**
+     * Gather input from every entity.
+     */
     public void input() {
 	this.entities.forEach((final Entity e) -> {
 	    e.input();
@@ -44,13 +59,16 @@ public class World {
     /**
      * Updates everything in the world
      */
-    public void update(final double deltaTime) {
+    public void update(final double deltaTime, final double sourceX,
+	    final double sourceY) {
 	final LinkedList<Rectangle> colliders = this.currentLevel
 		.getColliders();
 
 	this.entities.forEach((final Entity e) -> {
 	    e.update(deltaTime, colliders);
 	});
+
+	this.shadowCaster.cast(sourceX, sourceY, colliders);
     }
 
     /**
@@ -59,16 +77,32 @@ public class World {
      * @param g
      *            The graphics context from which to render
      */
-    public void render(final Graphics g) {
+    public void render(final Graphics g, final double sourceX,
+	    final double sourceY) {
 	// Translates the graphics origin to match that of the world offset
 	g.translate((int) this.x, (int) this.y);
 
 	// Render the tiles
-	this.currentLevel.render(g);
+	this.currentLevel.renderBackground(g);
 
 	this.entities.forEach((final Entity e) -> {
 	    e.render(g);
 	});
+
+	this.shadowCaster.render(g, this.currentLevel.getWidth() * Tile.SIZE,
+		this.currentLevel.getHeight() * Tile.SIZE, sourceX, sourceY);
+
+	this.currentLevel.render(g);
+
+	// Debug entity bounding boxes
+	if (Main.DEBUG) {
+	    g.setColor(Color.BLACK);
+	    this.entities.forEach((final Entity e) -> {
+		final Rectangle bbox = e.getRelativeBoundingBox();
+		g.drawRect((int) bbox.getX(), (int) bbox.getY(),
+			(int) bbox.getWidth(), (int) bbox.getHeight());
+	    });
+	}
 
 	// Restores the graphics origin
 	g.translate((int) (-this.x), (int) (-this.y));
@@ -94,6 +128,13 @@ public class World {
      */
     public boolean removeEntity(final Entity e) {
 	return this.entities.remove(e);
+    }
+
+    /**
+     * Removes all the entities from the world
+     */
+    public void removeAllEntities() {
+	this.entities.clear();
     }
 
     /**

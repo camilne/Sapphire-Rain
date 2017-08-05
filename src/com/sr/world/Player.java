@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import com.sr.asset.TextureAtlas;
 import com.sr.coverage.CoverageIgnore;
 import com.sr.input.Controllable;
-import com.sr.main.Main;
 
 public class Player extends Entity implements Controllable {
 
@@ -79,14 +78,14 @@ public class Player extends Entity implements Controllable {
     public void render(final Graphics g) {
 	g.drawImage(this.atlas.getTexture("default"), (int) (this.x),
 		(int) (this.y), this.width, this.height, null);
+    }
 
-	// Render bounding box for debug
-	if (Main.DEBUG) {
-	    g.drawRect((int) this.getRelativeBoundingBox().getX(), (int) this
-		    .getRelativeBoundingBox().getY(), (int) this
-		    .getRelativeBoundingBox().getWidth(), (int) this
-		    .getRelativeBoundingBox().getHeight());
-	}
+    public double getCX() {
+	return this.x + this.width / 2.0;
+    }
+
+    public double getCY() {
+	return this.y + this.height / 2.0;
     }
 
     @CoverageIgnore

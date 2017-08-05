@@ -1,5 +1,6 @@
 package com.sr.world;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -15,9 +16,25 @@ public class Level {
     // Access is [row][column]
     private Tile[][] tiles;
 
-    public Level(final TextureAtlas atlas, final Tile[][] tiles) {
+    private Tile backgroundTile;
+
+    // Used to pass the enemies from the level loader to the world
+    public Enemy[] enemies;
+
+    public Level(final TextureAtlas atlas, final Tile[][] tiles,
+	    final Tile backgroundTile, final Enemy[] enemies) {
 	this.atlas = atlas;
 	this.tiles = tiles;
+	this.backgroundTile = backgroundTile;
+	this.enemies = enemies;
+    }
+
+    public void renderBackground(final Graphics g) {
+	for (int r = 0; r < this.tiles.length; r++) {
+	    for (int c = 0; c < this.tiles[0].length; c++) {
+		this.backgroundTile.render(g, this.atlas, c, r);
+	    }
+	}
     }
 
     /**
@@ -29,12 +46,15 @@ public class Level {
     public void render(final Graphics g) {
 	for (int r = 0; r < this.tiles.length; r++) {
 	    for (int c = 0; c < this.tiles[0].length; c++) {
-		this.tiles[r][c].render(g, this.atlas, c, r);
+		if (this.tiles[r][c].getType() != this.backgroundTile.getType()) {
+		    this.tiles[r][c].render(g, this.atlas, c, r);
+		}
 	    }
 	}
 
 	// Draws all the colliders for debugging
 	if (Main.DEBUG) {
+	    g.setColor(Color.BLACK);
 	    getColliders().forEach(
 		    (final Rectangle collider) -> {
 			g.drawRect(collider.x, collider.y, collider.width,

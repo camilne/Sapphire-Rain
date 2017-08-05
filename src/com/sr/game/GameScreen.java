@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import com.sr.asset.TextureAtlas;
 import com.sr.main.Main;
+import com.sr.world.Enemy;
 import com.sr.world.Player;
 import com.sr.world.World;
 
@@ -40,9 +41,10 @@ public class GameScreen extends State {
 
     @Override
     public void update(final double deltaTime) {
+	Enemy.updatePlayerData(this.player);
 	this.world.input();
 
-	this.world.update(deltaTime);
+	this.world.update(deltaTime, this.player.getCX(), this.player.getCY());
 
 	// Translate world to center on player
 	final double x = this.player.getRelativeBoundingBox().getX();
@@ -65,7 +67,7 @@ public class GameScreen extends State {
 	g.setColor(Color.BLACK);
 	g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
 
-	this.world.render(g);
+	this.world.render(g, this.player.getCX(), this.player.getCY());
     }
 
     @Override
