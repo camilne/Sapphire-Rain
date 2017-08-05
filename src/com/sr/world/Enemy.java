@@ -103,14 +103,31 @@ public abstract class Enemy extends Entity {
 		(int) this.y, null);
     }
 
+    /**
+     * Sets the pathfinder for this enemy to use. Should be a pathfinder for the
+     * world tileset.
+     * 
+     * @param pathfinder
+     *            The pathfinder instance
+     */
     public void setPathfinder(final Pathfinder pathfinder) {
 	this.pathfinder = pathfinder;
     }
 
+    /**
+     * Returns the x-value for the center of this enemy.
+     * 
+     * @return The x-value for the center of this enemy in pixels.
+     */
     public double getCX() {
 	return this.x + this.width / 2.0;
     }
 
+    /**
+     * Returns the y-value for the center of this enemy.
+     * 
+     * @return The y-value for the center of this enemy in pixels.
+     */
     public double getCY() {
 	return this.y + this.height / 2.0;
     }
@@ -126,6 +143,15 @@ public abstract class Enemy extends Entity {
 	playerY = player.getCY();
     }
 
+    /**
+     * Sets the route this enemy should use to patrol. If no route is found
+     * between the two nodes, then the enemy does not follow any path.
+     * 
+     * @param start
+     *            The start of the route.
+     * @param goal
+     *            The end of the route.
+     */
     public abstract void setPatrolRoute(final Node start, final Node goal);
 
 }

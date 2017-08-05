@@ -154,6 +154,10 @@ public class BasicEnemy extends Enemy {
 
     @Override
     public void setPatrolRoute(final Node start, final Node goal) {
+	if (this.pathfinder == null) {
+	    return;
+	}
+
 	try {
 	    this.patrolRoute = this.pathfinder.getPath(start, goal);
 	} catch (final InvalidPathException e) {
