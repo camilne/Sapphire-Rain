@@ -1,6 +1,7 @@
 package com.sr.world;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import com.sr.asset.TextureAtlas;
@@ -49,6 +50,9 @@ public abstract class Enemy extends Entity {
     // The direction this enemy is moving in.
     protected Vector2 direction;
 
+    protected double width;
+    protected double height;
+
     // The name of the default texture on the TextureAtlas.
     private String defaultTexture;
     private TextureAtlas atlas;
@@ -69,6 +73,9 @@ public abstract class Enemy extends Entity {
     protected Enemy(final String defaultTexture, final TextureAtlas atlas) {
 	this.defaultTexture = defaultTexture;
 	this.atlas = atlas;
+	final BufferedImage image = this.atlas.getTexture(defaultTexture);
+	this.width = image.getWidth();
+	this.height = image.getHeight();
 	// this.boundingBox = new Rectangle();
 	this.pathfinder = null;
 	this.direction = new Vector2();
@@ -98,6 +105,14 @@ public abstract class Enemy extends Entity {
 
     public void setPathfinder(final Pathfinder pathfinder) {
 	this.pathfinder = pathfinder;
+    }
+
+    public double getCX() {
+	return this.x + this.width / 2.0;
+    }
+
+    public double getCY() {
+	return this.y + this.height / 2.0;
     }
 
     /**

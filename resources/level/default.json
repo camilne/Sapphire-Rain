@@ -126,7 +126,7 @@
 		"id": 17,
 		"location": [6, 1],
 		"colliders": [[11, 6, 12, 11]],
-		"occupied": "true"
+		"occupied": "false"
 	},
 	{
 		"name": "left-wall-cap",
@@ -140,7 +140,7 @@
 		"id": 19,
 		"location": [8, 1],
 		"colliders": [[6, 11, 11, 12]],
-		"occupied": "true"
+		"occupied": "false"
 	},
 	{
 		"name": "right-wall-intersection",

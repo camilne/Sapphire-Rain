@@ -54,16 +54,21 @@ public class BasicEnemy extends Enemy {
 	switch (this.behavior) {
 	case PATROL:
 	    if (this.patrolRoute != null) {
+		// Start the route if it is not started.
 		if (this.targetNode == null) {
 		    this.targetNode = this.patrolRoute.getStart();
 		}
 
-		final double ndx = this.targetNode.getX() * Tile.SIZE - this.x;
-		final double ndy = this.targetNode.getY() * Tile.SIZE - this.y;
+		// Set the direction of the enemy to the target node.
+		final double ndx = this.targetNode.getX() * Tile.SIZE
+			- this.getCX();
+		final double ndy = this.targetNode.getY() * Tile.SIZE
+			- this.getCY();
 
 		this.direction.x = ndx;
 		this.direction.y = ndy;
 
+		// Move to next node if the target node has been reached.
 		if (reachedNode(this.targetNode)) {
 		    this.targetNode = this.patrolRoute.getNext(this.targetNode);
 
@@ -90,8 +95,8 @@ public class BasicEnemy extends Enemy {
     private boolean reachedNode(final Node node) {
 	final double radius = 2; // Pixels
 
-	final double ndx = node.getX() * Tile.SIZE - this.x;
-	final double ndy = node.getY() * Tile.SIZE - this.y;
+	final double ndx = node.getX() * Tile.SIZE - this.getCX();
+	final double ndy = node.getY() * Tile.SIZE - this.getCY();
 
 	return ndx * ndx + ndy * ndy < radius * radius;
     }
